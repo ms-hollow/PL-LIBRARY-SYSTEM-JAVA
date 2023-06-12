@@ -125,8 +125,6 @@ public class LoginFrame extends JFrame {
 				} 
 				else {
 					if (borrower.loginBorrower(TUPID_Field.getText(), String.valueOf(password_Field.getPassword()))) {
-					//JOptionPane.showMessageDialog(null, "Incorrect Username / Password!", "Invalid Credentials", JOptionPane.YES_NO_OPTION);
-					//After ng action dadalhin sa student main portal
 							
 					//int position = borrower.locateBorrower(Log_IDField.getText()); - papasa na value na current account
 					Student_MainFrame student = new Student_MainFrame(); //punta sa student main frame

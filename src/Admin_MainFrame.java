@@ -134,10 +134,10 @@ public class Admin_MainFrame extends JFrame {
 		
 		table.setModel(new DefaultTableModel(
 				new Object[][] {
-					///INSERT CODE
+					///INSERT CODE NG MGA LIST NG BOOK 
 				},
 				new String[] {
-					"TITLE", "AUTHOR", "REFERENCE NUMBER", "BORROWER", "TUP ID"
+					"TITLE", "EDTN", "AUTHOR", "YEAR", "ISBN", "MATERIAL", "GENRE", "SHELF NO.", "TOTAL STOCK", "NO. BORROWER", "CURRENT STOCK"
 				}
 			) {
 				boolean[] columnEditables = new boolean[] {

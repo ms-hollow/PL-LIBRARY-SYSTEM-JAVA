@@ -195,7 +195,7 @@ public class RegisterFrame extends JFrame {
         				setVisible(false);	
 	                }
 
-				//if(checkRequirements(name, lName, e_mail, gender, bdate, license, plate, vtype, username, password) && policyCheck.isSelected()) {					
+				//if(checkRequirements(name, TUP_ID, password, yearSection, contactNum, email)) {					
 				}
 				
 			}
