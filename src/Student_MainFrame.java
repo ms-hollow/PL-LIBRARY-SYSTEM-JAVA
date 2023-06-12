@@ -208,26 +208,31 @@ public class Student_MainFrame extends JFrame {
 		//------------Search By Category Buttons---------//////
 		JRadioButton titleBtn = new JRadioButton("Title");
 		titleBtn.setBounds(21, 73, 76, 23);
+		titleBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		titleBtn.setContentAreaFilled(false);
 		SrchnBrrwpanel.add(titleBtn);
 		
 		JRadioButton authorBtn = new JRadioButton("Author");
 		authorBtn.setBounds(21, 99, 76, 23);
+		authorBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		authorBtn.setContentAreaFilled(false);
 		SrchnBrrwpanel.add(authorBtn);
 		
 		JRadioButton yearBtn = new JRadioButton("Year ");
 		yearBtn.setBounds(21, 125, 70, 23);
+		yearBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		yearBtn.setContentAreaFilled(false);
 		SrchnBrrwpanel.add(yearBtn);
 		
 		JRadioButton materialBtn = new JRadioButton("Material");
 		materialBtn.setBounds(21, 151, 95, 23);
+		materialBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		materialBtn.setContentAreaFilled(false);
 		SrchnBrrwpanel.add(materialBtn);
 		
 		JRadioButton genreBtn = new JRadioButton("Genre");
 		genreBtn.setBounds(21, 177, 70, 23);
+		genreBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		genreBtn.setContentAreaFilled(false);
 		SrchnBrrwpanel.add(genreBtn);
 		

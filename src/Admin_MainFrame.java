@@ -6,7 +6,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTabbedPane;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -19,12 +22,26 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.border.CompoundBorder;
 import javax.swing.JLayeredPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
 
 public class Admin_MainFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField borrowingSearchField;
 	private JTextField borrowerSearchField;
+	private JTextField titleField;
+	private JTextField authorField;
+	private JTextField yearField;
+	private JTextField ISBNField;
+	private JTextField materialField;
+	private JTextField genreField;
+	private JTextField shelfField;
+	private JTextField totalstckField;
+	private JTextField currstckField;
+	private JTextField nobrrwrField;
+	private JTextField searchbookField;
+	private JTable table;
 	
 	/**
 	 * Launch the application.
@@ -64,7 +81,7 @@ public class Admin_MainFrame extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JLabel logoutImg = new JLabel();
-		logoutImg.setBounds(984, 554, 35, 44);
+		logoutImg.setBounds(1031, 22, 35, 44);
 		logoutImg.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -88,22 +105,8 @@ public class Admin_MainFrame extends JFrame {
 		getContentPane().setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(79, 84, 940, 459);
+		tabbedPane.setBounds(51, 51, 1015, 544);
 		contentPane.add(tabbedPane);
-		
-		//---------------------DISPLAY BOOK PANEL-------------------------------//
-		
-		JPanel DisplayPanel = new JPanel();
-		DisplayPanel.setBackground(new Color(255, 255, 255));
-		DisplayPanel.setForeground(new Color(0, 0, 0));
-		DisplayPanel.setBorder(null);
-		tabbedPane.addTab("Display Books", null, DisplayPanel, null);
-		tabbedPane.setDisabledIconAt(0, null);
-		DisplayPanel.setLayout(null);
-		
-		JScrollPane DisplayscrollPane = new JScrollPane();
-		DisplayscrollPane.setBounds(27, 32, 883, 372);
-		DisplayPanel.add(DisplayscrollPane);
 		
 		//---------------------MANAGE BOOK PANEL-------------------------------//
 		
@@ -113,10 +116,43 @@ public class Admin_MainFrame extends JFrame {
 		manageBookPanel.setLayout(null);
 		
 		JScrollPane manageBookscrollPane = new JScrollPane();
-		manageBookscrollPane.setBounds(49, 35, 833, 170);
+		manageBookscrollPane.setBounds(114, 74, 833, 207);
 		manageBookPanel.add(manageBookscrollPane);
 		
+		//-----------------------------TABLE------------------------------------//
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();//////////////
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				//insert code here
+			}
+		});
+		
+		table.setModel(new DefaultTableModel(
+				new Object[][] {
+					///INSERT CODE
+				},
+				new String[] {
+					"TITLE", "AUTHOR", "REFERENCE NUMBER", "BORROWER", "TUP ID"
+				}
+			) {
+				boolean[] columnEditables = new boolean[] {
+	                false, false, false, false
+	            };
+	            public boolean isCellEditable(int row, int column) {
+	                return columnEditables[column];
+	            }
+			});
+		manageBookscrollPane.setViewportView(table);
+		
+		//----------------------------------------------------------------------//
+		
 		JButton deleteBtn = new JButton("Delete");
+		deleteBtn.setBounds(858, 453, 89, 23);
 		deleteBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -125,10 +161,10 @@ public class Admin_MainFrame extends JFrame {
 		});
 		deleteBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		deleteBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		deleteBtn.setBounds(793, 389, 89, 23);
 		manageBookPanel.add(deleteBtn);
 		
 		JButton updateBtn = new JButton("Update");
+		updateBtn.setBounds(759, 453, 89, 23);
 		updateBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -137,55 +173,203 @@ public class Admin_MainFrame extends JFrame {
 		});
 		updateBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		updateBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		updateBtn.setBounds(694, 389, 89, 23);
 		manageBookPanel.add(updateBtn);
 		
 		JButton addBtn = new JButton("Add");
+		addBtn.setBounds(660, 453, 89, 23);
 		addBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		addBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		addBtn.setBounds(595, 389, 89, 23);
 		manageBookPanel.add(addBtn);
 		
 		JLabel titlebookReclbl = new JLabel("Title");
-		titlebookReclbl.setBounds(210, 235, 46, 14);
+		titlebookReclbl.setBounds(114, 292, 46, 14);
+		titlebookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(titlebookReclbl);
 		
 		JLabel authorbookReclbl = new JLabel("Author");
-		authorbookReclbl.setBounds(210, 260, 46, 14);
+		authorbookReclbl.setBounds(114, 325, 46, 14);
+		authorbookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(authorbookReclbl);
 		
 		JLabel yearbookReclbl = new JLabel("Year Published");
-		yearbookReclbl.setBounds(210, 285, 70, 14);
+		yearbookReclbl.setBounds(114, 353, 104, 14);
+		yearbookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(yearbookReclbl);
 		
 		JLabel ISBNbookReclbl = new JLabel("ISBN");
-		ISBNbookReclbl.setBounds(210, 310, 70, 14);
+		ISBNbookReclbl.setBounds(114, 384, 70, 14);
+		ISBNbookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(ISBNbookReclbl);
 		
 		JLabel materialbookReclbl_1 = new JLabel("Material");
-		materialbookReclbl_1.setBounds(210, 335, 70, 14);
+		materialbookReclbl_1.setBounds(114, 415, 70, 14);
+		materialbookReclbl_1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(materialbookReclbl_1);
 		
 		JLabel genrebookReclbl = new JLabel("Genre");
-		genrebookReclbl.setBounds(595, 235, 70, 14);
+		genrebookReclbl.setBounds(535, 292, 70, 14);
+		genrebookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(genrebookReclbl);
 		
 		JLabel shelfnobookReclbl = new JLabel("Shelf No.");
-		shelfnobookReclbl.setBounds(595, 260, 70, 14);
+		shelfnobookReclbl.setBounds(535, 325, 70, 14);
+		shelfnobookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(shelfnobookReclbl);
 		
 		JLabel totalstockbookReclbl = new JLabel("Total Stock");
-		totalstockbookReclbl.setBounds(595, 285, 70, 14);
+		totalstockbookReclbl.setBounds(535, 353, 70, 14);
+		totalstockbookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(totalstockbookReclbl);
 		
 		JLabel borrowerbookReclbl = new JLabel("No. Borrower");
-		borrowerbookReclbl.setBounds(595, 335, 70, 14);
+		borrowerbookReclbl.setBounds(535, 415, 89, 14);
+		borrowerbookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(borrowerbookReclbl);
 		
 		JLabel currentbookReclbl = new JLabel("Current Stock");
-		currentbookReclbl.setBounds(595, 310, 70, 14);
+		currentbookReclbl.setBounds(535, 384, 89, 14);
+		currentbookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(currentbookReclbl);
 		
+		titleField = new JTextField();
+		titleField.setBounds(210, 289, 315, 20);
+		titleField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		manageBookPanel.add(titleField);
+		titleField.setColumns(10);
+		
+		authorField = new JTextField();
+		authorField.setBounds(210, 322, 315, 20);
+		authorField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		authorField.setColumns(10);
+		manageBookPanel.add(authorField);
+		
+		yearField = new JTextField();
+		yearField.setBounds(210, 350, 315, 20);
+		yearField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		yearField.setColumns(10);
+		manageBookPanel.add(yearField);
+		
+		ISBNField = new JTextField();
+		ISBNField.setBounds(210, 381, 315, 20);
+		ISBNField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		ISBNField.setColumns(10);
+		manageBookPanel.add(ISBNField);
+		
+		materialField = new JTextField();
+		materialField.setBounds(210, 412, 315, 20);
+		materialField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		materialField.setColumns(10);
+		manageBookPanel.add(materialField);
+		
+		genreField = new JTextField();
+		genreField.setBounds(632, 289, 315, 20);
+		genreField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		genreField.setColumns(10);
+		manageBookPanel.add(genreField);
+		
+		shelfField = new JTextField();
+		shelfField.setBounds(632, 322, 315, 20);
+		shelfField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		shelfField.setColumns(10);
+		manageBookPanel.add(shelfField);
+		
+		totalstckField = new JTextField();
+		totalstckField.setBounds(632, 350, 315, 20);
+		totalstckField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		totalstckField.setColumns(10);
+		manageBookPanel.add(totalstckField);
+		
+		currstckField = new JTextField();
+		currstckField.setBounds(632, 381, 315, 20);
+		currstckField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		currstckField.setColumns(10);
+		manageBookPanel.add(currstckField);
+		
+		nobrrwrField = new JTextField();
+		nobrrwrField.setBounds(632, 412, 315, 20);
+		nobrrwrField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		nobrrwrField.setColumns(10);
+		manageBookPanel.add(nobrrwrField);
+		
+		searchbookField = new JTextField();
+		searchbookField.setBounds(160, 29, 695, 31);
+		searchbookField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		searchbookField.setColumns(10);
+		manageBookPanel.add(searchbookField);
+		
+		JButton searchBtn_2 = new JButton("Search");
+		searchBtn_2.setBounds(865, 29, 82, 31);
+		searchBtn_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		manageBookPanel.add(searchBtn_2);
+		
+		JLabel bookSrchImg = new JLabel();
+		bookSrchImg.setBounds(114, 25, 40, 38);
+		bookSrchImg.setIconTextGap(0);
+		bookSrchImg.setIcon(searchIcon);
+		manageBookPanel.add(bookSrchImg);
+		
+		//--------------SEACRH BY CATEGORY---------------//
+		
+		JRadioButton titleBtn = new JRadioButton("Title");
+		titleBtn.setBounds(21, 73, 76, 23);
+		titleBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		titleBtn.setContentAreaFilled(false);
+		manageBookPanel.add(titleBtn);
+		
+		JRadioButton authorBtn = new JRadioButton("Author");
+		authorBtn.setBounds(21, 99, 76, 23);
+		authorBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		authorBtn.setContentAreaFilled(false);
+		manageBookPanel.add(authorBtn);
+		
+		JRadioButton yearBtn = new JRadioButton("Year ");
+		yearBtn.setBounds(21, 125, 70, 23);
+		yearBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		yearBtn.setContentAreaFilled(false);
+		manageBookPanel.add(yearBtn);
+		
+		JRadioButton materialBtn = new JRadioButton("Material");
+		materialBtn.setBounds(21, 151, 95, 23);
+		materialBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		materialBtn.setContentAreaFilled(false);
+		manageBookPanel.add(materialBtn);
+		
+		JRadioButton genreBtn = new JRadioButton("Genre");
+		genreBtn.setBounds(21, 177, 70, 23);
+		genreBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		genreBtn.setContentAreaFilled(false);
+		manageBookPanel.add(genreBtn);
+		
+		ButtonGroup choice = new ButtonGroup();
+		choice.add(titleBtn);
+		choice.add(authorBtn);
+		choice.add(yearBtn);
+		choice.add(materialBtn);
+		choice.add(genreBtn);
+		
+		JButton clearBtn = new JButton("Clear");
+		clearBtn.setBounds(561, 453, 89, 23);
+		clearBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				titleField.setText("");
+				authorField.setText("");
+				yearField.setText("");
+				ISBNField.setText("");
+				materialField.setText("");
+				genreField.setText("");
+				shelfField.setText("");
+				totalstckField.setText("");
+				currstckField.setText("");
+				nobrrwrField.setText("");
+				searchbookField.setText("");
+				
+				//Insert code para ma clear radio buttons
+				
+				
+			}
+		});
+		clearBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		manageBookPanel.add(clearBtn);
 		
 		//---------------------MANAGE BORROWING PANEL-------------------------------//
 		
@@ -229,6 +413,8 @@ public class Admin_MainFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//INSET CODE FOR EDIT STATUS BORROWING RECORDS
+				
+				
 			}
 		});
 		editBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -278,5 +464,4 @@ public class Admin_MainFrame extends JFrame {
 		
 				
 	}
-	
 }
