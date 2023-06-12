@@ -31,11 +31,16 @@ public class LoginFrame extends JFrame {
 	private JLabel lblNotRegistered;
 	private JLabel lblNewLabel;
 
-	private static CBorrower borrower = new CBorrower("","","");  
+	private static CBorrower borrower = new CBorrower("","","","","","");  
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		//--------MAIN MAGRE-RETRIEVE NG LIST---------------//
+		borrower.retrieveBorrower();
+				
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -108,22 +113,22 @@ public class LoginFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				borrower.retrieveBorrower();
-				if (borrower.logInAdmin(TUPID_Field.getText(), String.valueOf(password_Field.getPassword()))){
+				
+				if (TUPID_Field.getText().equals("ADMIN")){
 					
-					Admin_MainFrame admin = new Admin_MainFrame(); //punta sa student main frame
-					admin.setVisible(true);
-					admin.setLocationRelativeTo(null);
-					setVisible(false);
-					
-				}
+					if (borrower.logInAdmin(TUPID_Field.getText(), String.valueOf(password_Field.getPassword()))) {
+						Admin_MainFrame admin = new Admin_MainFrame(); //punta sa student main frame
+						admin.setVisible(true);
+						admin.setLocationRelativeTo(null);
+						setVisible(false);
+					}					
+				} 
 				else {
 					if (borrower.loginBorrower(TUPID_Field.getText(), String.valueOf(password_Field.getPassword()))) {
 					//JOptionPane.showMessageDialog(null, "Incorrect Username / Password!", "Invalid Credentials", JOptionPane.YES_NO_OPTION);
 					//After ng action dadalhin sa student main portal
 							
 					//int position = borrower.locateBorrower(Log_IDField.getText()); - papasa na value na current account
-						
 					Student_MainFrame student = new Student_MainFrame(); //punta sa student main frame
 					student.setVisible(true);
 					student.setLocationRelativeTo(null);
