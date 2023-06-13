@@ -24,10 +24,10 @@ public class RegisterFrame extends JFrame {
 	private JTextField RegnameField;
 	private JPasswordField RegrepassField;
 	private JTextField RegemailField;
-	
+	private JTextField RegcontactNumField;
 	
 	private static CBorrower borrower = new CBorrower("","","","","","");  
-	private JTextField RegcontactNumField;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -173,14 +173,25 @@ public class RegisterFrame extends JFrame {
 					setVisible(false);	
 		        } 
 				
+				else if(!borrower.checkBorrowerFields(name, TUP_ID, password, yearSection, contactNum, email)) {	//if may empty fields
+		            	JOptionPane.showMessageDialog(null, "PLEASE FILL IN ALL FIELDS", "Registration", JOptionPane.ERROR_MESSAGE);
+		        }
+				
 				else if (!password.equals(String.valueOf(RegrepassField.getPassword()))) {
 					JOptionPane.showMessageDialog(null, "PASSWORD DIDN'T MATCH!", "Registration", JOptionPane.ERROR_MESSAGE);	//ERROR MESSAGE
 				} 
+				
+				else if(TUP_ID.length()!=6) {	//if di 6 ang TUP_ID
+	            	JOptionPane.showMessageDialog(null, "TUP ID MUST BE 6 DIGITS LONG", "Registration", JOptionPane.ERROR_MESSAGE);
+	            }     
+				
 				else {	
+					
 					int choice = JOptionPane.showConfirmDialog(null, "DO YOU WANT TO SUBMIT YOUR REGISTRATION?", "Registration", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (choice == JOptionPane.YES_OPTION) {
                        // User clicked Yes
                     	borrower.addBorrower(name, TUP_ID, password, yearSection, contactNum, email);
+                    	borrower.saveBorrower();	
                     	JOptionPane.showMessageDialog(null, "YOUR ACCOUNT IS SUCCESSFULLY REGISTERED!", "Registration", JOptionPane.INFORMATION_MESSAGE);
                     	//Login Frame
                     	LoginFrame lgn = new LoginFrame(); //punta sa student login frame

@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.border.CompoundBorder;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
@@ -59,10 +60,17 @@ public class Admin_MainFrame extends JFrame {
 	private JTextField textField_19;
 	private JTextField nobrrwrField;
 	
+	private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
+	private JTextField editionField;
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		//--------MAIN MAGRE-RETRIEVE NG LIST---------------//
+		book.retrieveBook();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -108,6 +116,7 @@ public class Admin_MainFrame extends JFrame {
 				setVisible(false);
 			}
 		});
+		
 		contentPane.setLayout(null);
 		logoutImg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		getContentPane().add(logoutImg);
@@ -136,10 +145,10 @@ public class Admin_MainFrame extends JFrame {
 		manageBookscrollPane.setBounds(103, 74, 859, 207);
 		manageBookPanel.add(manageBookscrollPane);
 		
-		//-----------------------------TABLE------------------------------------//
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();//////////////
-		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
 		
+		
+		//-----------------------------TABLE------------------------------------//
+		/*
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -149,9 +158,8 @@ public class Admin_MainFrame extends JFrame {
 			}
 		});
 		table.setModel(new DefaultTableModel(
-				new Object[][] {
-					///INSERT CODE NG MGA LIST NG BOOK 
-				},
+				new Object[] {
+						book.getTitle(), book.getAuthor(), book.getISBN()},
 				new String[] {
 					"TITLE", "EDTN", "AUTHOR", "YEAR", "ISBN", "MATERIAL", "GENRE", "SHELF NO.", "INVENTORY", "NO. BORROWER", "REMAINING"
 				}
@@ -168,6 +176,56 @@ public class Admin_MainFrame extends JFrame {
 		for (int i = 0; i < columnWidths.length; i++) {
 		    table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
 		}
+		manageBookscrollPane.setViewportView(table);*/
+		
+		// Create a DefaultTableModel and specify the column names
+		DefaultTableModel model = new DefaultTableModel(
+		    new Object[][] {},
+		    new String[] {
+		        "Title", "Edition", "Author", "Year", "ISBN", "Material", "Category", "Shelf No.", "Total Stock", "No. Borrower", 
+		    }
+		) {
+		    boolean[] columnEditables = new boolean[] {false, false, false, false, false, false, false, false, false, false, false};
+
+		 
+
+		    public boolean isCellEditable(int row, int column) {
+		        return columnEditables[column];
+		    }
+		};
+
+		 
+		// Add data from the bookList to the model
+		for (CBook book : book.bookList) {
+		    Object[] row = {
+		        book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
+		        book.getMaterial(), book.getCategory(), book.getShelfNo(), book.getTotalStocks(),
+		        book.getNoOfBorrower()
+		    };
+		    model.addRow(row);
+		}
+
+		// Create the JTable and set the model
+		JTable table = new JTable(model);
+
+		// Specify the desired widths for each column
+		int[] columnWidths = {150, 40, 100, 40, 120, 80, 80, 20, 20, 20};
+
+		// Set the preferred column widths
+		for (int i = 0; i < columnWidths.length; i++) {
+		    table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
+		}
+
+		 
+		// Add a MouseListener to the table
+		table.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        // Insert your code here
+		    }
+		});
+
+		// Set the JTable as the view of the scroll pane
 		manageBookscrollPane.setViewportView(table);
 		
 		//----------------------------------------------------------------------//
@@ -201,6 +259,26 @@ public class Admin_MainFrame extends JFrame {
 		manageBookPanel.add(updateBtn);
 		
 		JButton addBtn = new JButton("Add");
+		addBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				//---- ADD NG BOOK ------//
+				book.getInfoBook(titleField.getText(),
+								 authorField.getText(),
+								 ISBNField.getText(),
+								 editionField.getText(),
+								 yearField.getText(),
+								 materialField.getText(),
+								 genreField.getText(),
+								 //----HINDI PA MAAYOS KAPAG WALA 
+								 Integer.parseInt(shelfField.getText()), 
+								 Integer.parseInt(totalstckField.getText()),
+								 Integer.parseInt(nobrrwrField.getText())
+							   );
+				book.saveBook();
+			}
+		});
+		
 		addBtn.setForeground(new Color(255, 255, 255));
 		addBtn.setBackground(new Color(0, 0, 0));
 		addBtn.setBounds(660, 453, 89, 23);
@@ -219,7 +297,7 @@ public class Admin_MainFrame extends JFrame {
 		manageBookPanel.add(authorbookReclbl);
 		
 		JLabel yearbookReclbl = new JLabel("Year Published");
-		yearbookReclbl.setBounds(113, 356, 104, 14);
+		yearbookReclbl.setBounds(308, 356, 104, 14);
 		yearbookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		manageBookPanel.add(yearbookReclbl);
 		
@@ -271,7 +349,7 @@ public class Admin_MainFrame extends JFrame {
 		manageBookPanel.add(authorField);
 		
 		yearField = new JTextField();
-		yearField.setBounds(209, 353, 315, 20);
+		yearField.setBounds(406, 353, 118, 20);
 		yearField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		yearField.setColumns(10);
 		manageBookPanel.add(yearField);
@@ -306,7 +384,7 @@ public class Admin_MainFrame extends JFrame {
 		totalstckField.setColumns(10);
 		manageBookPanel.add(totalstckField);
 		
-		currstckField = new JTextField();
+		currstckField = new JTextField(); //note dapat display lang to hindi dapat na eedit
 		currstckField.setBounds(631, 384, 315, 20);
 		currstckField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		currstckField.setColumns(10);
@@ -390,7 +468,7 @@ public class Admin_MainFrame extends JFrame {
 				shelfField.setText("");
 				totalstckField.setText("");
 				currstckField.setText("");
-				//nobrrwrField.setText("");
+				nobrrwrField.setText("");
 				searchbookField.setText("");
 				choice.clearSelection();	
 			}
@@ -403,6 +481,17 @@ public class Admin_MainFrame extends JFrame {
 		nobrrwrField.setColumns(10);
 		nobrrwrField.setBounds(632, 415, 315, 20);
 		manageBookPanel.add(nobrrwrField);
+		
+		JLabel editionlbl = new JLabel("Edition");
+		editionlbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		editionlbl.setBounds(113, 356, 56, 14);
+		manageBookPanel.add(editionlbl);
+		
+		editionField = new JTextField();
+		editionField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		editionField.setColumns(10);
+		editionField.setBounds(209, 353, 89, 20);
+		manageBookPanel.add(editionField);
 		
 		JPanel manageTransactionPanel = new JPanel();
 		manageTransactionPanel.setLayout(null);

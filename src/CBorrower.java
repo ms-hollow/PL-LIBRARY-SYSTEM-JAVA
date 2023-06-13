@@ -63,7 +63,6 @@ public class CBorrower {
         
         // Insert the new book at the determined index
         borrowerList.add(index, newBorrower);  
-        saveBorrower();																//automatic mase-save kada may bagong add. 
     }
     
     //display all borrower in the borrowerList
@@ -162,5 +161,19 @@ public class CBorrower {
             System.out.println("An error occurred.");
        }
        saveBorrower();					//para kapag na-arrange after ng retrieve, ma-save sa excel.
+	}
+	
+	public boolean checkBorrowerFields(String name, String TUP_ID, String password, String yearSection, String contactNum, String email) {
+		if(	name.equals("") ||
+			TUP_ID.equals("") ||
+			password.equals("") ||
+			yearSection.equals("") ||
+			contactNum.equals("") ||
+			email.equals("")
+			) {
+			return false;}
+		else {
+			return true;}
+
 	}
 }
