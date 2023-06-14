@@ -40,7 +40,7 @@ public class LoginFrame extends JFrame {
 		
 		//--------MAIN MAGRE-RETRIEVE NG LIST---------------//
 		borrower.retrieveBorrower();
-				
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

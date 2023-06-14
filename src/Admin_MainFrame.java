@@ -30,6 +30,7 @@ import javax.swing.DefaultComboBoxModel;
 
 public class Admin_MainFrame extends JFrame {
 
+
 	private JPanel contentPane;
 	private JTextField titleField;
 	private JTextField authorField;
@@ -276,6 +277,10 @@ public class Admin_MainFrame extends JFrame {
 								 Integer.parseInt(nobrrwrField.getText())
 							   );
 				book.saveBook();
+				Admin_MainFrame refresh = new Admin_MainFrame();
+				refresh.setVisible(true);
+				refresh.setLocationRelativeTo(null);
+				setVisible(false);
 			}
 		});
 		
