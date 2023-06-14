@@ -32,7 +32,7 @@ public class LoginFrame extends JFrame {
 	private JLabel lblNewLabel;
 
 	private static CBorrower borrower = new CBorrower("","","","","","");  
-	
+	private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
 	/**
 	 * Launch the application.
 	 */
@@ -40,6 +40,7 @@ public class LoginFrame extends JFrame {
 		
 		//--------MAIN MAGRE-RETRIEVE NG LIST---------------//
 		borrower.retrieveBorrower();
+		book.retrieveBook();
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -117,7 +118,7 @@ public class LoginFrame extends JFrame {
 				if (TUPID_Field.getText().equals("ADMIN")){
 					
 					if (borrower.logInAdmin(TUPID_Field.getText(), String.valueOf(password_Field.getPassword()))) {
-						Admin_MainFrame admin = new Admin_MainFrame(); //punta sa student main frame
+						Admin_Portal admin = new Admin_Portal(); //punta sa student main frame
 						admin.setVisible(true);
 						admin.setLocationRelativeTo(null);
 						setVisible(false);

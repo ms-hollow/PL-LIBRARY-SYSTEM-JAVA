@@ -1,12 +1,14 @@
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -36,6 +38,7 @@ public class manageBookRecords extends JPanel {
 	private JTextField editionField;
 	private DefaultTableModel model;
 	private JTable table;
+	private ButtonGroup choice;
 	
 	/**
 	 * Create the panel.
@@ -45,10 +48,77 @@ public class manageBookRecords extends JPanel {
 		setBounds(0, 0, 1005, 480);
         setLayout(null);
         
+        ImageIcon searchIcon = new ImageIcon(this.getClass().getResource("/assets/scan.png")); // load the image to a imageIcon
+		Image search = searchIcon.getImage(); // transform it 
+		Image newSearch = search.getScaledInstance(35, 35,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		searchIcon = new ImageIcon(newSearch);
+		
+		ImageIcon crossIcon = new ImageIcon(this.getClass().getResource("/assets/cross.png")); // load the image to a imageIcon
+		Image cross = crossIcon.getImage(); // transform it 
+		Image newCross = cross.getScaledInstance(15, 15,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		crossIcon = new ImageIcon(newCross);
+				   
+		JLabel clearSearch = new JLabel("");
+		clearSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				searchbookField.setText("");
+			}
+		});
+		clearSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+	    clearSearch.setBounds(854, 18, 15, 31);
+	    clearSearch.setIconTextGap(0);
+	    clearSearch.setIcon(crossIcon);
+	    add(clearSearch);
+	    
         JScrollPane manageBookscrollPane = new JScrollPane();
         manageBookscrollPane.setBounds(117, 60, 859, 207);
         add(manageBookscrollPane);
         
+ //--------------SEACRH BY CATEGORY---------------//
+		
+      	JRadioButton titleBtn = new JRadioButton("Title");
+      	titleBtn.setForeground(new Color(0, 0, 0));
+      	titleBtn.setBounds(21, 73, 76, 23);
+      	titleBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+      	titleBtn.setContentAreaFilled(false);
+      	add(titleBtn);
+      		
+      	JRadioButton authorBtn = new JRadioButton("Author");
+      	authorBtn.setForeground(new Color(0, 0, 0));
+      	authorBtn.setBounds(21, 99, 76, 23);
+      	authorBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+      	authorBtn.setContentAreaFilled(false);
+      	add(authorBtn);
+      		
+      	JRadioButton yearBtn = new JRadioButton("Year ");
+      	yearBtn.setForeground(new Color(0, 0, 0));
+      	yearBtn.setBounds(21, 125, 70, 23);
+      	yearBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+      	yearBtn.setContentAreaFilled(false);
+      	add(yearBtn);
+      		
+      	JRadioButton materialBtn = new JRadioButton("Material");
+      	materialBtn.setForeground(new Color(0, 0, 0));
+      	materialBtn.setBounds(21, 151, 95, 23);
+      	materialBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+      	materialBtn.setContentAreaFilled(false);
+      	add(materialBtn);
+      		
+      	JRadioButton genreBtn = new JRadioButton("Genre");
+      	genreBtn.setForeground(new Color(0, 0, 0));
+      	genreBtn.setBounds(21, 177, 70, 23);
+      	genreBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+      	genreBtn.setContentAreaFilled(false);
+      	add(genreBtn);
+      		
+      	ButtonGroup choice = new ButtonGroup();
+      	choice.add(titleBtn);
+      	choice.add(authorBtn);
+      	choice.add(yearBtn);
+      	choice.add(materialBtn);
+      	choice.add(genreBtn);
         
 		// Create a DefaultTableModel and specify the column names
 		DefaultTableModel model = new DefaultTableModel(
@@ -100,11 +170,12 @@ public class manageBookRecords extends JPanel {
 		
 		// Set the JTable as the view of the scroll pane
 		manageBookscrollPane.setViewportView(table);
+		table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
        
-    
         JButton deleteBtn = new JButton("Delete");
         deleteBtn.setForeground(Color.WHITE);
+        deleteBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         deleteBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         deleteBtn.setBackground(Color.BLACK);
         deleteBtn.setBounds(872, 439, 89, 23);
@@ -112,15 +183,39 @@ public class manageBookRecords extends JPanel {
         
         JButton updateBtn = new JButton("Update");
         updateBtn.setForeground(Color.WHITE);
+        updateBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         updateBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         updateBtn.setBackground(Color.BLACK);
         updateBtn.setBounds(773, 439, 89, 23);
         add(updateBtn);
-       
+        /*
+        JButton clearBtn = new JButton("Clear");
+		clearBtn.setForeground(new Color(255, 255, 255));
+		clearBtn.setBackground(new Color(0, 0, 0));
+		clearBtn.setBounds(561, 453, 89, 23);
+		clearBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				titleField.setText("");
+				authorField.setText("");
+				yearField.setText("");
+				ISBNField.setText("");
+				materialField.setText("");
+				genreField.setText("");
+				shelfField.setText("");
+				totalstckField.setText("");
+				currstckField.setText("");
+				nobrrwrField.setText("");
+				searchbookField.setText("");
+				choice.clearSelection();	
+			}
+		});
+		clearBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		add(clearBtn);
+       */
         JButton addBtn = new JButton("Add");
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
 				//---- ADD NG BOOK ------//
 				book.getInfoBook(titleField.getText(),
 								 authorField.getText(),
@@ -136,11 +231,14 @@ public class manageBookRecords extends JPanel {
 							   );
 				book.saveBook();
 				updateTable(model);
+				clearFields();
+				choice.clearSelection();
 			}
 		});
 		
         addBtn.setForeground(Color.WHITE);
         addBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        addBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         addBtn.setBackground(Color.BLACK);
         addBtn.setBounds(674, 439, 89, 23);
         add(addBtn);
@@ -252,91 +350,24 @@ public class manageBookRecords extends JPanel {
         searchbookField = new JTextField();
         searchbookField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         searchbookField.setColumns(10);
-        searchbookField.setBounds(167, 18, 695, 31);
+        searchbookField.setBounds(167, 18, 677, 31);
         add(searchbookField);
         
         ///change to image
         JButton searchBtn_2 = new JButton("Search");
         searchBtn_2.setForeground(Color.WHITE);
         searchBtn_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        searchBtn_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         searchBtn_2.setBackground(Color.BLACK);
-        searchBtn_2.setBounds(872, 18, 82, 31);
+        searchBtn_2.setBounds(879, 18, 82, 31);
         add(searchBtn_2);
         
         JLabel bookSrchImg = new JLabel();
         bookSrchImg.setIconTextGap(0);
-        bookSrchImg.setBounds(128, 11, 40, 38);
+        bookSrchImg.setBounds(128, 14, 40, 38);
+		bookSrchImg.setIcon(searchIcon);
         add(bookSrchImg);
-        
-      //--------------SEACRH BY CATEGORY---------------//
-		
-      	JRadioButton titleBtn = new JRadioButton("Title");
-      	titleBtn.setForeground(new Color(0, 0, 0));
-      	titleBtn.setBounds(21, 73, 76, 23);
-      	titleBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-      	titleBtn.setContentAreaFilled(false);
-      	add(titleBtn);
-      		
-      	JRadioButton authorBtn = new JRadioButton("Author");
-      	authorBtn.setForeground(new Color(0, 0, 0));
-      	authorBtn.setBounds(21, 99, 76, 23);
-      	authorBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-      	authorBtn.setContentAreaFilled(false);
-      	add(authorBtn);
-      		
-      	JRadioButton yearBtn = new JRadioButton("Year ");
-      	yearBtn.setForeground(new Color(0, 0, 0));
-      	yearBtn.setBounds(21, 125, 70, 23);
-      	yearBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-      	yearBtn.setContentAreaFilled(false);
-      	add(yearBtn);
-      		
-      	JRadioButton materialBtn = new JRadioButton("Material");
-      	materialBtn.setForeground(new Color(0, 0, 0));
-      	materialBtn.setBounds(21, 151, 95, 23);
-      	materialBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-      	materialBtn.setContentAreaFilled(false);
-      	add(materialBtn);
-      		
-      	JRadioButton genreBtn = new JRadioButton("Genre");
-      	genreBtn.setForeground(new Color(0, 0, 0));
-      	genreBtn.setBounds(21, 177, 70, 23);
-      	genreBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-      	genreBtn.setContentAreaFilled(false);
-      	add(genreBtn);
-      		
-      	ButtonGroup choice = new ButtonGroup();
-      	choice.add(titleBtn);
-      	choice.add(authorBtn);
-      	choice.add(yearBtn);
-      	choice.add(materialBtn);
-      	choice.add(genreBtn);
-      			
-      	JButton clearBtn = new JButton("Clear");
-      	clearBtn.setForeground(new Color(255, 255, 255));
-      	clearBtn.setBackground(new Color(0, 0, 0));
-      	clearBtn.setBounds(575, 439, 89, 23);
-      	clearBtn.addActionListener(new ActionListener() {
-      		public void actionPerformed(ActionEvent e) {
-      			titleField.setText("");
-      			authorField.setText("");
-      			yearField.setText("");
-      			ISBNField.setText("");
-      			materialField.setText("");
-      			genreField.setText("");
-      			shelfField.setText("");
-      			totalstckField.setText("");
-      			currstckField.setText("");
-      			nobrrwrField.setText("");
-      			searchbookField.setText("");
-      			editionField.setText("");
-      			choice.clearSelection();	
-      			}
-      		});
-      		clearBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-      		add(clearBtn);
-        
-       
+      			      
         nobrrwrField = new JTextField();
         nobrrwrField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         nobrrwrField.setColumns(10);
@@ -354,6 +385,7 @@ public class manageBookRecords extends JPanel {
         editionField.setBounds(223, 339, 89, 20);
         add(editionField);
         
+        
 	}
 	
 	private void updateTable(DefaultTableModel model) {
@@ -369,5 +401,20 @@ public class manageBookRecords extends JPanel {
 	        };
 	        model.addRow(row);
 	    }
+	}
+	public void clearFields() {
+		
+		titleField.setText("");
+		authorField.setText("");
+		yearField.setText("");
+		ISBNField.setText("");
+		materialField.setText("");
+		genreField.setText("");
+		shelfField.setText("");
+		totalstckField.setText("");
+		currstckField.setText("");
+		nobrrwrField.setText("");
+		searchbookField.setText("");
+		editionField.setText("");
 	}
 }

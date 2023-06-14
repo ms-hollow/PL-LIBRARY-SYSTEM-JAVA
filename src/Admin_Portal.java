@@ -14,6 +14,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JSeparator;
 
 public class Admin_Portal extends JFrame {
 
@@ -33,6 +34,7 @@ public class Admin_Portal extends JFrame {
    
     private JButton btnNewButton_1;
     private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
+    private JLabel ADMINlbl;
     
     public static void main(String[] args) {
     	
@@ -67,10 +69,19 @@ public class Admin_Portal extends JFrame {
 		Image newrefresh = refresh.getScaledInstance(35, 35,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
 		refreshIcon = new ImageIcon(newrefresh);
 		getContentPane().setLayout(null);
+		
+		ImageIcon logOutIcon = new ImageIcon(this.getClass().getResource("/assets/logout.png")); // load the image to a imageIcon
+		Image logOut = logOutIcon.getImage(); // transform it 
+		Image newlogOut = logOut.getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		logOutIcon = new ImageIcon(newlogOut);
+		getContentPane().setLayout(null);
 
         manageBookRecords = new manageBookRecords();
+        manageBookRecords.setBackground(new Color(255, 245, 238));
         manageTransactionRecords = new manageTransactionRecords();
+        manageTransactionRecords.setBackground(new Color(255, 245, 238));
         manageStudentRecords = new manageStudentRecords();
+        manageStudentRecords.setBackground(new Color(255, 245, 238));
 
         panelMainDisplay = new JPanel();
         panelMainDisplay.setBounds(53, 105, 1005, 480);
@@ -87,7 +98,7 @@ public class Admin_Portal extends JFrame {
         manageBookRecords.add(btnNewButton_1);
 
         MENU = new JPanel();
-        MENU.setBounds(53, 66, 1005, 42);
+        MENU.setBounds(53, 66, 1005, 40);
         contentPane.add(MENU);
         MENU.setLayout(null);
 
@@ -147,6 +158,30 @@ public class Admin_Portal extends JFrame {
         lblManageStudentRecords.setHorizontalAlignment(SwingConstants.CENTER);
         lblManageStudentRecords.setBounds(43, 11, 218, 23);
         studentRecMenu.add(lblManageStudentRecords);
+        
+        JLabel logoutImg = new JLabel();
+		logoutImg.setBounds(1033, 30, 25, 34);
+		logoutImg.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//logout or exit
+				LoginFrame login = new LoginFrame();
+				login.setVisible(true);
+				login.setLocationRelativeTo(null);
+				setVisible(false);
+			}
+		});
+		
+		contentPane.setLayout(null);
+		logoutImg.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		getContentPane().add(logoutImg);
+		logoutImg.setIconTextGap(0);
+		logoutImg.setIcon(logOutIcon);
+		
+		ADMINlbl = new JLabel("ADMIN");
+		ADMINlbl.setFont(new Font("Segoe UI", Font.BOLD, 30));
+		ADMINlbl.setBounds(53, 21, 106, 34);
+		contentPane.add(ADMINlbl);
     }
 
     public void menuClicked(JPanel panel) {
