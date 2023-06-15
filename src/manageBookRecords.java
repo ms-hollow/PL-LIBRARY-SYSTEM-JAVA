@@ -1,5 +1,7 @@
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -39,6 +41,7 @@ public class manageBookRecords extends JPanel {
 	private DefaultTableModel model;
 	private JTable table;
 	private ButtonGroup choice;
+	private int selectedRow;
 	
 	/**
 	 * Create the panel.
@@ -157,14 +160,31 @@ public class manageBookRecords extends JPanel {
 		    table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
 		}
 		
-		 
+		//Kapag pinindot ang table lalabas sa fields lahat ng data 
 		// Add a MouseListener to the table
 		table.addMouseListener(new MouseAdapter() {
 		    @Override
-		    public void mouseClicked(MouseEvent e) {
-		        // Insert your code here
+		    public void mouseClicked(MouseEvent e) { 
 		    	
-			}
+		        selectedRow = table.getSelectedRow();
+		        if (selectedRow >= 0) {
+		            titleField.setText((String) table.getValueAt(selectedRow, 0));
+		            editionField.setText((String) table.getValueAt(selectedRow, 1));
+		            authorField.setText((String) table.getValueAt(selectedRow, 2));
+		            yearField.setText((String) table.getValueAt(selectedRow, 3));
+		            ISBNField.setText((String) table.getValueAt(selectedRow, 4));
+		            materialField.setText((String) table.getValueAt(selectedRow, 5));
+		            genreField.setText((String) table.getValueAt(selectedRow, 6));
+		            shelfField.setText(Integer.toString((int) table.getValueAt(selectedRow, 7)));
+		            totalstckField.setText(Integer.toString((int) table.getValueAt(selectedRow, 8)));
+		            nobrrwrField.setText(Integer.toString((int) table.getValueAt(selectedRow, 9)));
+		            
+		            int totalStock = Integer.parseInt(totalstckField.getText());
+		            int noBorrower = Integer.parseInt(nobrrwrField.getText());
+		            int currentStock = totalStock - noBorrower;
+		            currstckField.setText(Integer.toString(currentStock));
+		        }
+		    }
 		});
 		
 		
@@ -189,7 +209,38 @@ public class manageBookRecords extends JPanel {
         JButton updateBtn = new JButton("Update");
         updateBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		// Insert Code Here
+        				
+        		if(!book.checkBookFields(titleField.getText(),
+						 				authorField.getText(),
+						 				ISBNField.getText(),
+						 				editionField.getText(),
+						 				yearField.getText(),
+						 				materialField.getText(),
+						 				genreField.getText(),
+						 				shelfField.getText(), 
+						 				totalstckField.getText(),
+						 				nobrrwrField.getText())) {	//if may empty fields
+                	JOptionPane.showMessageDialog(null, "PLEASE FILL IN ALL FIELDS", "Add Book", JOptionPane.ERROR_MESSAGE);
+                }
+        		else {
+            		int choice = JOptionPane.showConfirmDialog(null, "ARE YOU SURE TO UPDATE THE INFORMATION?", "Update Book", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		        	if (choice == JOptionPane.YES_OPTION) {		//if pinindot yes
+		    	        
+		    	        book.bookList.get(selectedRow).setTitle(titleField.getText()); 
+		    	        book.bookList.get(selectedRow).setAuthor(authorField.getText());
+		    	        book.bookList.get(selectedRow).setISBN(ISBNField.getText());
+		    	        book.bookList.get(selectedRow).setEdition(editionField.getText());
+		    	        book.bookList.get(selectedRow).setYearPublished(yearField.getText());
+		    	        book.bookList.get(selectedRow).setMaterial(materialField.getText());
+		    	        book.bookList.get(selectedRow).setCategory(genreField.getText());
+		    	        book.bookList.get(selectedRow).setShelfNo(Integer.parseInt(shelfField.getText()));
+		    	        book.bookList.get(selectedRow).setTotalStocks(Integer.parseInt(totalstckField.getText()));
+		    	        book.bookList.get(selectedRow).setNoOfBorrower(Integer.parseInt(nobrrwrField.getText()));
+		    	          
+        			}
+        		}
+    	        book.saveBook();
+    	        updateTable(model);
         	}
         });
         updateBtn.setForeground(Color.WHITE);
@@ -247,7 +298,6 @@ public class manageBookRecords extends JPanel {
 			}
 		});
 		
-		currstckField.
 		
         addBtn.setForeground(Color.WHITE);
         addBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -358,6 +408,7 @@ public class manageBookRecords extends JPanel {
         currstckField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         currstckField.setColumns(10);
         currstckField.setBounds(645, 370, 315, 20);
+        currstckField.setEditable(false);
         add(currstckField);
         
         searchbookField = new JTextField();

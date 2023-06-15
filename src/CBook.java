@@ -125,8 +125,6 @@ class CBook {
     //METHODS
     public void getInfoBook(String title, String author, String ISBN, String edition, String yearPublished, String material, String category, String shelfNo, String totalStocks, String noOfBorrower) {
         
-    	
-    	
         //JOP CONFIRMATION
         if(locateBook(ISBN)>-1) {		//if existing na sa record
         	JOptionPane.showMessageDialog(null, "THE BOOK ALREADY EXISTS IN THE RECORD", "Add Book", JOptionPane.ERROR_MESSAGE);
