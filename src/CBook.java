@@ -244,21 +244,15 @@ class CBook {
 	    return -1; 											// Return -1 if book is not found
 	}
 	
-	public void deleteBook() {
-		System.out.println("ENTER THE ISBN OF THE BOOK YOU WANT TO DELETE: ");
-		String ISBN= scanner.nextLine();
-	    int index = locateBook(ISBN);
-	    if (index >= 0) {
-	    	
-	    	//ASK IF CONFIRM UPDATING
-        	int choice = JOptionPane.showConfirmDialog(null, "ARE YOU SURE TO UPDATE THE INFORMATION?", "Delete Book", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-	        if (choice == JOptionPane.YES_OPTION) {		//if pinindot yes
-		        bookList.remove(index);
-		        JOptionPane.showMessageDialog(null, bookList.get(index).getTitle() +" IS DELETED SUCCESSFULLY!", "Delete Book", JOptionPane.INFORMATION_MESSAGE);
-	        }
-	    } else {
-	    	JOptionPane.showMessageDialog(null, "BOOK NOT FOUND!", "Delete Book", JOptionPane.ERROR_MESSAGE);
-	    }
+	public void deleteBook(int selectedRow) {
+		
+		// DOUBLE TEST KASI MAY BUG
+	    //ASK IF CONFIRM UPDATING
+        int choice = JOptionPane.showConfirmDialog(null, "ARE YOU SURE TO DELETE THE INFORMATION?", "Delete Book", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+	    if (choice == JOptionPane.YES_OPTION) {		//if pinindot yes
+		    bookList.remove(selectedRow);
+		    JOptionPane.showMessageDialog(null, "SELECTED BOOK IS DELETED SUCCESSFULLY!", "Delete Book", JOptionPane.INFORMATION_MESSAGE);
+	    } 
 	    saveBook();
 	}
 	
@@ -397,6 +391,7 @@ class CBook {
 			return true;}
 
 	}
+
 	
 	
 	

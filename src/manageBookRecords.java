@@ -196,7 +196,9 @@ public class manageBookRecords extends JPanel {
         JButton deleteBtn = new JButton("Delete");
         deleteBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		// 
+        		book.deleteBook(selectedRow);
+        		updateTable(model);
+        		clearFields();
         	}
         });
         deleteBtn.setForeground(Color.WHITE);
