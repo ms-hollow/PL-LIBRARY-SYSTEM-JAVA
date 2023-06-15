@@ -31,11 +31,11 @@ public class Admin_Portal extends JFrame {
     private JLabel lblManageStudentRecords;
     private JButton btnNewButton;
     private JPanel panelMainDisplay;
-   
-    private JButton btnNewButton_1;
-    private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
+    
     private JLabel ADMINlbl;
     
+    private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
+
     public static void main(String[] args) {
     	
     	//--------MAIN MAGRE-RETRIEVE NG LIST---------------//
@@ -92,10 +92,6 @@ public class Admin_Portal extends JFrame {
         panelMainDisplay.add(manageStudentRecords);
 
         menuClicked(manageBookRecords);
-        
-        btnNewButton_1 = new JButton("New button");
-        btnNewButton_1.setBounds(674, 439, 89, 23);
-        manageBookRecords.add(btnNewButton_1);
 
         MENU = new JPanel();
         MENU.setBounds(53, 66, 1005, 40);

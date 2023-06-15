@@ -123,8 +123,10 @@ class CBook {
     }
       
     //METHODS
-    public void getInfoBook(String title, String author, String ISBN, String edition, String yearPublished, String material, String category, int shelfNo, int totalStocks, int noOfBorrower) {
+    public void getInfoBook(String title, String author, String ISBN, String edition, String yearPublished, String material, String category, String shelfNo, String totalStocks, String noOfBorrower) {
         
+    	
+    	
         //JOP CONFIRMATION
         if(locateBook(ISBN)>-1) {		//if existing na sa record
         	JOptionPane.showMessageDialog(null, "THE BOOK ALREADY EXISTS IN THE RECORD", "Add Book", JOptionPane.ERROR_MESSAGE);
@@ -138,7 +140,7 @@ class CBook {
 	        int choice = JOptionPane.showConfirmDialog(null, "ARE YOU SURE TO ADD THIS BOOK RECORD?", "Add Book", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 	        if (choice == JOptionPane.YES_OPTION) {
 	            // User clicked Yes
-	        	 addBook(title, author, ISBN, edition, yearPublished, material, category, shelfNo, totalStocks, noOfBorrower);	//after makuha info, i-add na.
+	        	 addBook(title, author, ISBN, edition, yearPublished, material, category, Integer.parseInt(shelfNo), Integer.parseInt(totalStocks), Integer.parseInt(noOfBorrower));	//after makuha info, i-add na.
 	        	 JOptionPane.showMessageDialog(null, "BOOK RECORD SUCCESSFULLY ADDED!", "Add Book", JOptionPane.INFORMATION_MESSAGE);
 	             // PUNTA SA NEXT FRAME
 	        }
@@ -380,7 +382,7 @@ class CBook {
 	}
 	
 	//checks if may laman lahat ng fields.
-	public boolean checkBookFields(String title, String author, String ISBN, String edition, String yearPublished, String material, String category, int shelfNo, int totalStocks, int noOfBorrower) {
+	public boolean checkBookFields(String title, String author, String ISBN, String edition, String yearPublished, String material, String category, String shelfNo, String totalStocks, String noOfBorrower) {
 		if(	title.equals("") ||
 			author.equals("") ||
 			ISBN.equals("") ||
@@ -388,9 +390,9 @@ class CBook {
 			yearPublished.equals("") ||
 			material.equals("") ||
 			category.equals("") ||
-			shelfNo == 0 ||
-			totalStocks == 0 ||
-			noOfBorrower == 0
+			shelfNo.equals("") ||
+			totalStocks.equals("") ||
+			noOfBorrower.equals("")
 			) {
 			return false;}
 		else {

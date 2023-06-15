@@ -150,7 +150,7 @@ public class manageBookRecords extends JPanel {
 		JTable table = new JTable(model);
 
 		// Specify the desired widths for each column
-		int[] columnWidths = {150, 40, 100, 40, 120, 80, 80, 20, 20, 20};
+		int[] columnWidths = {150, 30, 100, 30, 120, 80, 80, 20, 20, 20};
 
 		// Set the preferred column widths
 		for (int i = 0; i < columnWidths.length; i++) {
@@ -174,6 +174,11 @@ public class manageBookRecords extends JPanel {
         
        
         JButton deleteBtn = new JButton("Delete");
+        deleteBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		// 
+        	}
+        });
         deleteBtn.setForeground(Color.WHITE);
         deleteBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         deleteBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -182,12 +187,18 @@ public class manageBookRecords extends JPanel {
         add(deleteBtn);
         
         JButton updateBtn = new JButton("Update");
+        updateBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		// Insert Code Here
+        	}
+        });
         updateBtn.setForeground(Color.WHITE);
         updateBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         updateBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         updateBtn.setBackground(Color.BLACK);
         updateBtn.setBounds(773, 439, 89, 23);
         add(updateBtn);
+       
         /*
         JButton clearBtn = new JButton("Clear");
 		clearBtn.setForeground(new Color(255, 255, 255));
@@ -212,6 +223,7 @@ public class manageBookRecords extends JPanel {
 		clearBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		add(clearBtn);
        */
+        
         JButton addBtn = new JButton("Add");
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -224,10 +236,9 @@ public class manageBookRecords extends JPanel {
 								 yearField.getText(),
 								 materialField.getText(),
 								 genreField.getText(),
-								 //----HINDI PA MAAYOS KAPAG WALA 
-								 Integer.parseInt(shelfField.getText()), 
-								 Integer.parseInt(totalstckField.getText()),
-								 Integer.parseInt(nobrrwrField.getText())
+								 shelfField.getText(), 
+								 totalstckField.getText(),
+								 nobrrwrField.getText()
 							   );
 				book.saveBook();
 				updateTable(model);
@@ -235,6 +246,8 @@ public class manageBookRecords extends JPanel {
 				choice.clearSelection();
 			}
 		});
+		
+		currstckField.
 		
         addBtn.setForeground(Color.WHITE);
         addBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -402,6 +415,7 @@ public class manageBookRecords extends JPanel {
 	        model.addRow(row);
 	    }
 	}
+	
 	public void clearFields() {
 		
 		titleField.setText("");

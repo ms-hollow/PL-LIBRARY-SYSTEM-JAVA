@@ -32,7 +32,7 @@ public class LoginFrame extends JFrame {
 	private JLabel lblNewLabel;
 
 	private static CBorrower borrower = new CBorrower("","","","","","");  
-	private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
+	//private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
 	/**
 	 * Launch the application.
 	 */
@@ -40,7 +40,7 @@ public class LoginFrame extends JFrame {
 		
 		//--------MAIN MAGRE-RETRIEVE NG LIST---------------//
 		borrower.retrieveBorrower();
-		book.retrieveBook();
+		//book.retrieveBook();
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

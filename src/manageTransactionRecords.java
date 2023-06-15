@@ -24,16 +24,6 @@ public class manageTransactionRecords extends JPanel {
 	private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book 
 	
 	private JTextField searchbookField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
 	private JTextField titleField;
 	private JTextField authorField;
 	private JTextField editionField;
