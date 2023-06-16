@@ -82,17 +82,25 @@ public class manageBookRecords extends JPanel {
 	    clearSearch.setIcon(crossIcon);
 	    add(clearSearch);
 	    
-        JScrollPane manageBookscrollPane = new JScrollPane();
-        manageBookscrollPane.setBounds(117, 60, 859, 207);
-        add(manageBookscrollPane);
-        
- //--------------SEACRH BY CATEGORY---------------//
+	    displayTable(); //display overall table
+	    
+   
+	    //--------------SEACRH BY CATEGORY---------------//
 		
       	JRadioButton titleBtn = new JRadioButton("Title");
       	titleBtn.setForeground(new Color(0, 0, 0));
       	titleBtn.setBounds(21, 73, 76, 23);
       	titleBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	titleBtn.setContentAreaFilled(false);
+      	titleBtn.addActionListener(new ActionListener() {
+      	    @Override
+      	    public void actionPerformed(ActionEvent e) {
+      	        if (titleBtn.isSelected()) {
+      	            // Code to execute when Title radio button is selected
+      	        	//JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
+      	        }
+      	    }
+      	});
       	add(titleBtn);
       		
       	JRadioButton authorBtn = new JRadioButton("Author");
@@ -100,6 +108,15 @@ public class manageBookRecords extends JPanel {
       	authorBtn.setBounds(21, 99, 76, 23);
       	authorBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	authorBtn.setContentAreaFilled(false);
+      	authorBtn.addActionListener(new ActionListener() {
+      	    @Override
+      	    public void actionPerformed(ActionEvent e) {
+      	        if (authorBtn.isSelected()) {
+      	            // Code to execute when Title radio button is selected
+      	        	//JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
+      	        }
+      	    }
+      	});
       	add(authorBtn);
       		
       	JRadioButton yearBtn = new JRadioButton("Year ");
@@ -107,6 +124,15 @@ public class manageBookRecords extends JPanel {
       	yearBtn.setBounds(21, 125, 70, 23);
       	yearBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	yearBtn.setContentAreaFilled(false);
+      	yearBtn.addActionListener(new ActionListener() {
+      	    @Override
+      	    public void actionPerformed(ActionEvent e) {
+      	        if (yearBtn.isSelected()) {
+      	            // Code to execute when Title radio button is selected
+      	        	//JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
+      	        }
+      	    }
+      	});
       	add(yearBtn);
       		
       	JRadioButton materialBtn = new JRadioButton("Material");
@@ -114,6 +140,15 @@ public class manageBookRecords extends JPanel {
       	materialBtn.setBounds(21, 151, 95, 23);
       	materialBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	materialBtn.setContentAreaFilled(false);
+      	materialBtn.addActionListener(new ActionListener() {
+      	    @Override
+      	    public void actionPerformed(ActionEvent e) {
+      	        if (materialBtn.isSelected()) {
+      	            // Code to execute when Title radio button is selected
+      	        	//JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
+      	        }
+      	    }
+      	});
       	add(materialBtn);
       		
       	JRadioButton genreBtn = new JRadioButton("Genre");
@@ -121,6 +156,15 @@ public class manageBookRecords extends JPanel {
       	genreBtn.setBounds(21, 177, 70, 23);
       	genreBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	genreBtn.setContentAreaFilled(false);
+      	genreBtn.addActionListener(new ActionListener() {
+      	    @Override
+      	    public void actionPerformed(ActionEvent e) {
+      	        if (genreBtn.isSelected()) {
+      	            // Code to execute when Title radio button is selected
+      	        	//JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
+      	        }
+      	    }
+      	});
       	add(genreBtn);
       		
       	ButtonGroup choice = new ButtonGroup();
@@ -130,87 +174,7 @@ public class manageBookRecords extends JPanel {
       	choice.add(materialBtn);
       	choice.add(genreBtn);
       
-      	titleBtn.addActionListener(new ActionListener() {
-      	    @Override
-      	    public void actionPerformed(ActionEvent e) {
-      	        if (titleBtn.isSelected()) {
-      	            // Code to execute when Title radio button is selected
-      	        	JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
-      	        }
-      	    }
-      	});
-      	add(titleBtn);
-      	
-		// Create a DefaultTableModel and specify the column names
-		DefaultTableModel model = new DefaultTableModel(
-				
-		    new Object[][] {},
-		    new String[] {
-		        "Title", "Edition", "Author", "Year", "ISBN", "Material", "Category", "Shelf No.", "Total Stock", "No. Borrower", 
-		    }
-		) {
-		    boolean[] columnEditables = new boolean[] {false, false, false, false, false, false, false, false, false, false, false};
-
-		    public boolean isCellEditable(int row, int column) {
-		        return columnEditables[column];
-		    }
-		};
-		
-		// Add data from the bookList to the model
-		for (CBook book : book.bookList) {
-			
-		    Object[] row = {
-		        book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
-		        book.getMaterial(), book.getCategory(), book.getShelfNo(), book.getTotalStocks(),
-		        book.getNoOfBorrower()
-		    };
-		    model.addRow(row);
-		   
-		}
-
-		// Create the JTable and set the model
-		JTable table = new JTable(model);
-
-		// Specify the desired widths for each column
-		int[] columnWidths = {150, 30, 100, 30, 120, 80, 80, 20, 20, 20};
-
-		// Set the preferred column widths
-		for (int i = 0; i < columnWidths.length; i++) {
-		    table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
-		}
-		
-		//Kapag pinindot ang table lalabas sa fields lahat ng data 
-		// Add a MouseListener to the table
-		table.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) { 
-		    	
-		        selectedRow = table.getSelectedRow();
-		        if (selectedRow >= 0) {
-		            titleField.setText((String) table.getValueAt(selectedRow, 0));
-		            editionField.setText((String) table.getValueAt(selectedRow, 1));
-		            authorField.setText((String) table.getValueAt(selectedRow, 2));
-		            yearField.setText((String) table.getValueAt(selectedRow, 3));
-		            ISBNField.setText((String) table.getValueAt(selectedRow, 4));
-		            materialField.setText((String) table.getValueAt(selectedRow, 5));
-		            genreField.setText((String) table.getValueAt(selectedRow, 6));
-		            shelfField.setText(Integer.toString((int) table.getValueAt(selectedRow, 7)));
-		            totalstckField.setText(Integer.toString((int) table.getValueAt(selectedRow, 8)));
-		            nobrrwrField.setText(Integer.toString((int) table.getValueAt(selectedRow, 9)));
-		            
-		            int totalStock = Integer.parseInt(totalstckField.getText());
-		            int noBorrower = Integer.parseInt(nobrrwrField.getText());
-		            int currentStock = totalStock - noBorrower;
-		            currstckField.setText(Integer.toString(currentStock));
-		        }
-		    }
-		});
-		
-		
-		// Set the JTable as the view of the scroll pane
-		manageBookscrollPane.setViewportView(table);
-		table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
+      	//insert here table
        
         JButton deleteBtn = new JButton("Delete");
         deleteBtn.addActionListener(new ActionListener() {
@@ -443,14 +407,17 @@ public class manageBookRecords extends JPanel {
         searchbookField.setBounds(167, 18, 677, 31);
         add(searchbookField);
         
-        ///change to image
         JButton searchBtn_2 = new JButton("Search");
         searchBtn_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
         		searchbookField.getText();
+        		if (searchbookField.getText().isEmpty()) {
+        			displayTable();
+        		}
         	}
         });
+        
         searchBtn_2.setForeground(Color.WHITE);
         searchBtn_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         searchBtn_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -576,6 +543,87 @@ public class manageBookRecords extends JPanel {
 				table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));	
 	}
 	*/
+	
+	public void displayTable() {
+		
+	   	JScrollPane manageBookscrollPane = new JScrollPane();
+        manageBookscrollPane.setBounds(117, 60, 859, 207);
+        add(manageBookscrollPane);
+         
+      	
+		// Create a DefaultTableModel and specify the column names
+		model = new DefaultTableModel(
+				
+		    new Object[][] {},
+		    new String[] {
+		        "Title", "Edition", "Author", "Year", "ISBN", "Material", "Category", "Shelf No."
+		    }
+		) {
+		    boolean[] columnEditables = new boolean[] {false, false, false, false, false, false, false, false, false};
+
+		    public boolean isCellEditable(int row, int column) {
+		        return columnEditables[column];
+		    }
+		};
+		
+		// Add data from the bookList to the model
+		for (CBook book : book.bookList) {
+			
+		    Object[] row = {
+		        book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
+		        book.getMaterial(), book.getCategory(), book.getShelfNo()
+		    };
+		    model.addRow(row);
+		   
+		}
+
+		// Create the JTable and set the model
+		JTable table = new JTable(model);
+
+		// Specify the desired widths for each column
+		int[] columnWidths = {150, 30, 100, 30, 120, 80, 80, 20};
+
+		// Set the preferred column widths
+		for (int i = 0; i < columnWidths.length; i++) {
+		    table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
+		}
+		
+		//Kapag pinindot ang table lalabas sa fields lahat ng data 
+		// Add a MouseListener to the table
+		table.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) { 
+		    	
+		        selectedRow = table.getSelectedRow();
+		        if (selectedRow >= 0) {
+		            titleField.setText((String) table.getValueAt(selectedRow, 0));
+		            editionField.setText((String) table.getValueAt(selectedRow, 1));
+		            authorField.setText((String) table.getValueAt(selectedRow, 2));
+		            yearField.setText((String) table.getValueAt(selectedRow, 3));
+		            ISBNField.setText((String) table.getValueAt(selectedRow, 4));
+		            materialField.setText((String) table.getValueAt(selectedRow, 5));
+		            genreField.setText((String) table.getValueAt(selectedRow, 6));
+		            shelfField.setText(Integer.toString((int) table.getValueAt(selectedRow, 7)));
+		            //totalstckField.setText(Integer.toString((int) table.getValueAt(selectedRow, 8)));
+		            //nobrrwrField.setText(Integer.toString((int) table.getValueAt(selectedRow, 9)));
+		            
+		            int totalStock = book.bookList.get(selectedRow).getTotalStocks();
+		            int noBorrower = book.bookList.get(selectedRow).getNoOfBorrower();
+		            int currentStock = totalStock - noBorrower;
+		            totalstckField.setText(Integer.toString(totalStock));
+		            currstckField.setText(Integer.toString(currentStock));
+		            nobrrwrField.setText(Integer.toString(noBorrower));
+		        }
+		    }
+		});
+		
+		
+		// Set the JTable as the view of the scroll pane
+		manageBookscrollPane.setViewportView(table);
+		table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	}
+	
+	
 	
 	public void clearFields() {
 		

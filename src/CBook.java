@@ -26,7 +26,7 @@ class CBook {
     private int noOfBorrower = 0;
    
 
-    public CBook(String title, String author, String ISBN, String edition, String yearPublished, String material, String category, int totalStocks, int noOfBorrower, int shelfNo) {
+    public CBook(String title, String author, String ISBN, String edition, String yearPublished, String material, String category, int shelfNo, int totalStocks, int noOfBorrower) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
@@ -34,9 +34,9 @@ class CBook {
         this.yearPublished = yearPublished;
         this.material = material;
         this.category = category;
+        this.shelfNo =  shelfNo;  
         this.totalStocks = totalStocks;
         this.noOfBorrower = noOfBorrower;
-        this.shelfNo =  shelfNo;  
     }
 
     //GETTERS
