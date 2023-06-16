@@ -49,7 +49,10 @@ public class manageBookRecords extends JPanel {
     private JRadioButton yearBtn;
     private JRadioButton materialBtn;
     private JRadioButton genreBtn;
-	
+    private String attributeValue;
+    private String keyword;
+	private int searchChoice;
+    
 	/**
 	 * Create the panel.
 	 */
@@ -92,15 +95,6 @@ public class manageBookRecords extends JPanel {
       	titleBtn.setBounds(21, 73, 76, 23);
       	titleBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	titleBtn.setContentAreaFilled(false);
-      	titleBtn.addActionListener(new ActionListener() {
-      	    @Override
-      	    public void actionPerformed(ActionEvent e) {
-      	        if (titleBtn.isSelected()) {
-      	            // Code to execute when Title radio button is selected
-      	        	//JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
-      	        }
-      	    }
-      	});
       	add(titleBtn);
       		
       	JRadioButton authorBtn = new JRadioButton("Author");
@@ -108,15 +102,6 @@ public class manageBookRecords extends JPanel {
       	authorBtn.setBounds(21, 99, 76, 23);
       	authorBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	authorBtn.setContentAreaFilled(false);
-      	authorBtn.addActionListener(new ActionListener() {
-      	    @Override
-      	    public void actionPerformed(ActionEvent e) {
-      	        if (authorBtn.isSelected()) {
-      	            // Code to execute when Title radio button is selected
-      	        	//JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
-      	        }
-      	    }
-      	});
       	add(authorBtn);
       		
       	JRadioButton yearBtn = new JRadioButton("Year ");
@@ -124,15 +109,6 @@ public class manageBookRecords extends JPanel {
       	yearBtn.setBounds(21, 125, 70, 23);
       	yearBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	yearBtn.setContentAreaFilled(false);
-      	yearBtn.addActionListener(new ActionListener() {
-      	    @Override
-      	    public void actionPerformed(ActionEvent e) {
-      	        if (yearBtn.isSelected()) {
-      	            // Code to execute when Title radio button is selected
-      	        	//JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
-      	        }
-      	    }
-      	});
       	add(yearBtn);
       		
       	JRadioButton materialBtn = new JRadioButton("Material");
@@ -140,15 +116,6 @@ public class manageBookRecords extends JPanel {
       	materialBtn.setBounds(21, 151, 95, 23);
       	materialBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	materialBtn.setContentAreaFilled(false);
-      	materialBtn.addActionListener(new ActionListener() {
-      	    @Override
-      	    public void actionPerformed(ActionEvent e) {
-      	        if (materialBtn.isSelected()) {
-      	            // Code to execute when Title radio button is selected
-      	        	//JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
-      	        }
-      	    }
-      	});
       	add(materialBtn);
       		
       	JRadioButton genreBtn = new JRadioButton("Genre");
@@ -156,15 +123,6 @@ public class manageBookRecords extends JPanel {
       	genreBtn.setBounds(21, 177, 70, 23);
       	genreBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	genreBtn.setContentAreaFilled(false);
-      	genreBtn.addActionListener(new ActionListener() {
-      	    @Override
-      	    public void actionPerformed(ActionEvent e) {
-      	        if (genreBtn.isSelected()) {
-      	            // Code to execute when Title radio button is selected
-      	        	//JOptionPane.showMessageDialog(null, "NO ANY RECORD FOUND!", "Display Book", JOptionPane.ERROR_MESSAGE);
-      	        }
-      	    }
-      	});
       	add(genreBtn);
       		
       	ButtonGroup choice = new ButtonGroup();
@@ -173,8 +131,37 @@ public class manageBookRecords extends JPanel {
       	choice.add(yearBtn);
       	choice.add(materialBtn);
       	choice.add(genreBtn);
-      
+      	
+      	//String category = choice.getSelection().getActionCommand(); // here kung paano kinuha
       	//insert here table
+      	// Add ActionListener to handle radio button selection
+        ActionListener radioBtnListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JRadioButton selectedButton = (JRadioButton) e.getSource();
+                
+                if (selectedButton == titleBtn) {
+                    searchChoice = 1;
+                } else if (selectedButton == authorBtn) {
+                    searchChoice = 2;
+                } else if (selectedButton == yearBtn) {
+                	searchChoice = 3;
+                } else if (selectedButton == materialBtn) {
+                	searchChoice = 4;
+                } else if (selectedButton == genreBtn) {
+                	searchChoice = 5;
+                }
+            }
+        };
+
+        // Add the ActionListener to each radio button
+        titleBtn.addActionListener(radioBtnListener);
+        authorBtn.addActionListener(radioBtnListener);
+        yearBtn.addActionListener(radioBtnListener);
+        materialBtn.addActionListener(radioBtnListener);
+        genreBtn.addActionListener(radioBtnListener);
+      	
+        
        
         JButton deleteBtn = new JButton("Delete");
         deleteBtn.addActionListener(new ActionListener() {
@@ -411,9 +398,12 @@ public class manageBookRecords extends JPanel {
         searchBtn_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
-        		searchbookField.getText();
+        		keyword = searchbookField.getText();
         		if (searchbookField.getText().isEmpty()) {
         			displayTable();
+        		}
+        		else {
+        			displaySearchTable();
         		}
         	}
         });
@@ -457,92 +447,15 @@ public class manageBookRecords extends JPanel {
 
 	    // Add data from the bookList to the model
 	    for (CBook book : book.bookList) {
-	        Object[] row = {
-	            book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
-	            book.getMaterial(), book.getCategory(), book.getShelfNo(), book.getTotalStocks(),
-	            book.getNoOfBorrower()
+	    	Object[] row = {
+		        book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
+		        book.getMaterial(), book.getCategory(), book.getShelfNo(), book.getTotalStocks(),
+		        book.getNoOfBorrower()
 	        };
 	        model.addRow(row);
+	    	
 	    }
 	}
-	/*
-	private void searchDisplay() {
-		
-		JScrollPane manageBookscrollPane = new JScrollPane();
-        manageBookscrollPaneSearch.setBounds(117, 60, 859, 207);
-        add(manageBookscrollPaneSearch);
-        
-		// Create a DefaultTableModel and specify the column names
-				DefaultTableModel model = new DefaultTableModel(
-						
-				    new Object[][] {},
-				    new String[] {
-				        "Title", "Edition", "Author", "Year", "ISBN", "Material", "Category", "Shelf No.", "Total Stock", "No. Borrower", 
-				    }
-				) {
-				    boolean[] columnEditables = new boolean[] {false, false, false, false, false, false, false, false, false, false, false};
-
-				    public boolean isCellEditable(int row, int column) {
-				        return columnEditables[column];
-				    }
-				};
-				
-				// Add data from the bookList to the model
-				for (CBook book : book.bookList) {
-					
-				    Object[] row = {
-				        book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
-				        book.getMaterial(), book.getCategory(), book.getShelfNo(), book.getTotalStocks(),
-				        book.getNoOfBorrower()
-				    };
-				    model.addRow(row);
-				   
-				}
-
-				// Create the JTable and set the model
-				JTable table = new JTable(model);
-
-				// Specify the desired widths for each column
-				int[] columnWidths = {150, 30, 100, 30, 120, 80, 80, 20, 20, 20};
-
-				// Set the preferred column widths
-				for (int i = 0; i < columnWidths.length; i++) {
-				    table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
-				}
-				
-				//Kapag pinindot ang table lalabas sa fields lahat ng data 
-				// Add a MouseListener to the table
-				table.addMouseListener(new MouseAdapter() {
-				    @Override
-				    public void mouseClicked(MouseEvent e) { 
-				    	
-				        selectedRow = table.getSelectedRow();
-				        if (selectedRow >= 0) {
-				            titleField.setText((String) table.getValueAt(selectedRow, 0));
-				            editionField.setText((String) table.getValueAt(selectedRow, 1));
-				            authorField.setText((String) table.getValueAt(selectedRow, 2));
-				            yearField.setText((String) table.getValueAt(selectedRow, 3));
-				            ISBNField.setText((String) table.getValueAt(selectedRow, 4));
-				            materialField.setText((String) table.getValueAt(selectedRow, 5));
-				            genreField.setText((String) table.getValueAt(selectedRow, 6));
-				            shelfField.setText(Integer.toString((int) table.getValueAt(selectedRow, 7)));
-				            totalstckField.setText(Integer.toString((int) table.getValueAt(selectedRow, 8)));
-				            nobrrwrField.setText(Integer.toString((int) table.getValueAt(selectedRow, 9)));
-				            
-				            int totalStock = Integer.parseInt(totalstckField.getText());
-				            int noBorrower = Integer.parseInt(nobrrwrField.getText());
-				            int currentStock = totalStock - noBorrower;
-				            currstckField.setText(Integer.toString(currentStock));
-				        }
-				    }
-				});
-				
-				
-				// Set the JTable as the view of the scroll pane
-				manageBookscrollPaneSearch.setViewportView(table);
-				table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));	
-	}
-	*/
 	
 	public void displayTable() {
 		
@@ -572,9 +485,9 @@ public class manageBookRecords extends JPanel {
 		    Object[] row = {
 		        book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
 		        book.getMaterial(), book.getCategory(), book.getShelfNo()
-		    };
+		    	};
 		    model.addRow(row);
-		   
+			
 		}
 
 		// Create the JTable and set the model
@@ -623,7 +536,110 @@ public class manageBookRecords extends JPanel {
 		table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	}
 	
-	
+	public void displaySearchTable() {
+		
+		JScrollPane manageBookscrollPane = new JScrollPane();
+        manageBookscrollPane.setBounds(117, 60, 859, 207);
+        add(manageBookscrollPane);
+         
+		// Create a DefaultTableModel and specify the column names
+		model = new DefaultTableModel(
+				
+		    new Object[][] {},
+		    new String[] {
+		        "Title", "Edition", "Author", "Year", "ISBN", "Material", "Category", "Shelf No."
+		    }
+		) {
+		    boolean[] columnEditables = new boolean[] {false, false, false, false, false, false, false, false, false};
+
+		    public boolean isCellEditable(int row, int column) {
+		        return columnEditables[column];
+		    }
+		};
+		
+		// Add data from the bookList to the model
+		for (CBook book : book.bookList) {
+			
+			 switch (searchChoice) {
+	            case 1:
+	                attributeValue = book.getTitle();
+	                break;
+	            case 2:
+	                attributeValue = book.getAuthor();
+	                break;
+	            case 3:
+	                attributeValue = book.getISBN();
+	                break;
+	            case 4:
+	                attributeValue = book.getEdition();
+	                break; 
+	            case 5:
+	                attributeValue = book.getYearPublished();
+	                break;
+	            case 6:
+	                attributeValue = book.getMaterial();
+	                break;
+	            case 7:
+	                attributeValue = book.getCategory();
+	                break;
+	            default:
+	                attributeValue = "";
+	                break;
+	        }
+			if (attributeValue.toLowerCase().contains(keyword.toLowerCase())) {
+			    Object[] row = {
+			        book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
+			        book.getMaterial(), book.getCategory(), book.getShelfNo()
+			    	};
+			    model.addRow(row);
+			}
+		}
+
+		// Create the JTable and set the model
+		JTable table = new JTable(model);
+
+		// Specify the desired widths for each column
+		int[] columnWidths = {150, 30, 100, 30, 120, 80, 80, 20};
+
+		// Set the preferred column widths
+		for (int i = 0; i < columnWidths.length; i++) {
+		    table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
+		}
+		
+		//Kapag pinindot ang table lalabas sa fields lahat ng data 
+		// Add a MouseListener to the table
+		table.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) { 
+		    	
+		        selectedRow = table.getSelectedRow();
+		        if (selectedRow >= 0) {
+		            titleField.setText((String) table.getValueAt(selectedRow, 0));
+		            editionField.setText((String) table.getValueAt(selectedRow, 1));
+		            authorField.setText((String) table.getValueAt(selectedRow, 2));
+		            yearField.setText((String) table.getValueAt(selectedRow, 3));
+		            ISBNField.setText((String) table.getValueAt(selectedRow, 4));
+		            materialField.setText((String) table.getValueAt(selectedRow, 5));
+		            genreField.setText((String) table.getValueAt(selectedRow, 6));
+		            shelfField.setText(Integer.toString((int) table.getValueAt(selectedRow, 7)));
+		            //totalstckField.setText(Integer.toString((int) table.getValueAt(selectedRow, 8)));
+		            //nobrrwrField.setText(Integer.toString((int) table.getValueAt(selectedRow, 9)));
+		            
+		            int totalStock = book.bookList.get(selectedRow).getTotalStocks();
+		            int noBorrower = book.bookList.get(selectedRow).getNoOfBorrower();
+		            int currentStock = totalStock - noBorrower;
+		            totalstckField.setText(Integer.toString(totalStock));
+		            currstckField.setText(Integer.toString(currentStock));
+		            nobrrwrField.setText(Integer.toString(noBorrower));
+		        }
+		    }
+		});
+		
+		
+		// Set the JTable as the view of the scroll pane
+		manageBookscrollPane.setViewportView(table);
+		table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	}
 	
 	public void clearFields() {
 		
