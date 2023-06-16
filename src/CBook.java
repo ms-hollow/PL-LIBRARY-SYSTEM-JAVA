@@ -244,13 +244,13 @@ class CBook {
 	    return -1; 											// Return -1 if book is not found
 	}
 	
-	public void deleteBook(int selectedRow) {
+	public void deleteBook(int index) {
 		
 		// DOUBLE TEST KASI MAY BUG
 	    //ASK IF CONFIRM UPDATING
         int choice = JOptionPane.showConfirmDialog(null, "ARE YOU SURE TO DELETE THE INFORMATION?", "Delete Book", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 	    if (choice == JOptionPane.YES_OPTION) {		//if pinindot yes
-		    bookList.remove(selectedRow);
+		    bookList.remove(index);
 		    JOptionPane.showMessageDialog(null, "SELECTED BOOK IS DELETED SUCCESSFULLY!", "Delete Book", JOptionPane.INFORMATION_MESSAGE);
 	    } 
 	    saveBook();

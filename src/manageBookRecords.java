@@ -76,24 +76,6 @@ public class manageBookRecords extends JPanel {
 		Image search = searchIcon.getImage(); // transform it 
 		Image newSearch = search.getScaledInstance(35, 35,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
 		searchIcon = new ImageIcon(newSearch);
-		
-		ImageIcon crossIcon = new ImageIcon(this.getClass().getResource("/assets/cross.png")); // load the image to a imageIcon
-		Image cross = crossIcon.getImage(); // transform it 
-		Image newCross = cross.getScaledInstance(15, 15,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
-		crossIcon = new ImageIcon(newCross);
-				   
-		JLabel clearSearch = new JLabel("");
-		clearSearch.setBounds(854, 18, 15, 31);
-		clearSearch.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				searchbookField.setText("");
-			}
-		});
-		clearSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	    clearSearch.setIconTextGap(0);
-	    clearSearch.setIcon(crossIcon);
-	    add(clearSearch);
 	    
 	    displayTable(); //display overall table
 	    
@@ -182,7 +164,7 @@ public class manageBookRecords extends JPanel {
 				}
         		else {
         		book.deleteBook(selectedRow);
-        		updateTable(model1);
+        		displayTable();
         		clearFields();
         		}
         	}
@@ -227,7 +209,7 @@ public class manageBookRecords extends JPanel {
         			}
         		}
     	        book.saveBook();
-    	        updateTable(model1);
+    	        displayTable();
         	}
         });
         updateBtn.setForeground(Color.WHITE);
@@ -418,6 +400,7 @@ public class manageBookRecords extends JPanel {
         	}
         });
         
+        
         searchBtn_2.setForeground(Color.WHITE);
         searchBtn_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         searchBtn_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -447,6 +430,27 @@ public class manageBookRecords extends JPanel {
         editionField.setColumns(10);
         add(editionField);
         
+        ImageIcon crossIcon = new ImageIcon(this.getClass().getResource("/assets/cross.png")); // load the image to a imageIcon
+		Image cross = crossIcon.getImage(); // transform it 
+		Image newCross = cross.getScaledInstance(15, 15,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		crossIcon = new ImageIcon(newCross);
+				   
+		JLabel clearSearch = new JLabel("");
+		clearSearch.setBounds(854, 18, 15, 31);
+		clearSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				searchbookField.setText("");
+				displayTable();
+				choice.clearSelection();
+				clearFields();
+			}
+		});
+		clearSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	    clearSearch.setIconTextGap(0);
+	    clearSearch.setIcon(crossIcon);
+	    add(clearSearch);
+        
         
 	}
 	
@@ -468,6 +472,11 @@ public class manageBookRecords extends JPanel {
 	
 	public void displayTable() {
 		
+		// Remove previous scroll pane if it exists
+	    if (manageBookscrollPane != null) {
+	        remove(manageBookscrollPane);
+	    }
+	    
 	   	manageBookscrollPane = new JScrollPane();
 	   	manageBookscrollPane.setBounds(117, 60, 859, 207);
         add(manageBookscrollPane);
@@ -497,7 +506,6 @@ public class manageBookRecords extends JPanel {
 		    model1.addRow(row);
 			
 		}
-		
 
 		// Create the JTable and set the model
 		table1 = new JTable(model1);
