@@ -244,10 +244,11 @@ class CBook {
 	    return -1; 											// Return -1 if book is not found
 	}
 	
-	public void deleteBook(int index) {
+	public void deleteBook(String ISBN) {
 		
 		// DOUBLE TEST KASI MAY BUG
 	    //ASK IF CONFIRM UPDATING
+		int index= locateBook(ISBN);
         int choice = JOptionPane.showConfirmDialog(null, "ARE YOU SURE TO DELETE THE INFORMATION?", "Delete Book", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 	    if (choice == JOptionPane.YES_OPTION) {		//if pinindot yes
 		    bookList.remove(index);

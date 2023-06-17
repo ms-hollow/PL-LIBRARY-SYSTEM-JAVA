@@ -42,6 +42,8 @@ public class manageBookRecords extends JPanel {
 	private JTextField nobrrwrField;
 	private JTextField editionField;
 	private JScrollPane manageBookscrollPane;
+	private DefaultTableModel model;
+	private JTable table;
 	private DefaultTableModel model1;
 	private JTable table1;
 	private DefaultTableModel model2;
@@ -56,7 +58,9 @@ public class manageBookRecords extends JPanel {
     private JRadioButton genreBtn;
     private String attributeValue;
     private String keyword = "";
+    private String searchedISBN;
 	private int searchChoice;
+	
     
 	/**
 	 * Create the panel.
@@ -143,6 +147,9 @@ public class manageBookRecords extends JPanel {
                 } else if (selectedButton == genreBtn) {
                 	searchChoice = 5;
                 }
+                else {
+                	searchChoice=6;
+                }
             }
         };
 
@@ -152,23 +159,32 @@ public class manageBookRecords extends JPanel {
         yearBtn.addActionListener(radioBtnListener);
         materialBtn.addActionListener(radioBtnListener);
         genreBtn.addActionListener(radioBtnListener);
-      	
-        
+   
        
         JButton deleteBtn = new JButton("Delete");
         deleteBtn.setBounds(872, 439, 89, 23);
         deleteBtn.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		if (selectedRow == 0) {
-        			JOptionPane.showMessageDialog(null, "PLEASE SELECT A ROW", "Delete Book", JOptionPane.ERROR_MESSAGE);
-				}
-        		else {
-        		book.deleteBook(selectedRow);
-        		displayTable();
-        		clearFields();
-        		}
-        	}
+            public void actionPerformed(ActionEvent e) {
+                if (selectedRow == -1) {
+                    JOptionPane.showMessageDialog(null, "PLEASE SELECT A ROW", "Delete Book", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    int choice = JOptionPane.showConfirmDialog(null, "ARE YOU SURE TO DELETE THE INFORMATION?", "Delete Book", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (choice == JOptionPane.YES_OPTION) {
+                    	
+                    	int index= book.locateBook(ISBNField.getText());	//returns index of the seletec book
+                        CBook selectedBook = book.bookList.get(index); // Get the selected book from the bookList
+                        book.bookList.remove(selectedBook); // Remove the selected book from the bookList
+                        JOptionPane.showMessageDialog(null, "SELECTED BOOK IS DELETED SUCCESSFULLY!", "Delete Book", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    book.saveBook();
+                    displayTable();
+                    clearFields();
+                }
+            }
         });
+
+
+
         deleteBtn.setForeground(Color.WHITE);
         deleteBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         deleteBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -196,16 +212,17 @@ public class manageBookRecords extends JPanel {
             		int choice = JOptionPane.showConfirmDialog(null, "ARE YOU SURE TO UPDATE THE INFORMATION?", "Update Book", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		        	if (choice == JOptionPane.YES_OPTION) {		//if pinindot yes
 		    	        
-		    	        book.bookList.get(selectedRow).setTitle(titleField.getText()); 
-		    	        book.bookList.get(selectedRow).setAuthor(authorField.getText());
-		    	        book.bookList.get(selectedRow).setISBN(ISBNField.getText());
-		    	        book.bookList.get(selectedRow).setEdition(editionField.getText());
-		    	        book.bookList.get(selectedRow).setYearPublished(yearField.getText());
-		    	        book.bookList.get(selectedRow).setMaterial(materialField.getText());
-		    	        book.bookList.get(selectedRow).setCategory(genreField.getText());
-		    	        book.bookList.get(selectedRow).setShelfNo(Integer.parseInt(shelfField.getText()));
-		    	        book.bookList.get(selectedRow).setTotalStocks(Integer.parseInt(totalstckField.getText()));
-		    	        book.bookList.get(selectedRow).setNoOfBorrower(Integer.parseInt(nobrrwrField.getText()));  
+		        		int index= book.locateBook(ISBNField.getText());	//returns index of the seletec book
+		    	        book.bookList.get(index).setTitle(titleField.getText()); 
+		    	        book.bookList.get(index).setAuthor(authorField.getText());
+		    	        book.bookList.get(index).setISBN(ISBNField.getText());
+		    	        book.bookList.get(index).setEdition(editionField.getText());
+		    	        book.bookList.get(index).setYearPublished(yearField.getText());
+        				book.bookList.get(index).setMaterial(materialField.getText());
+        				book.bookList.get(index).setCategory(genreField.getText());
+        				book.bookList.get(index).setShelfNo(Integer.parseInt(shelfField.getText()));
+        				book.bookList.get(index).setTotalStocks(Integer.parseInt(totalstckField.getText()));
+        				book.bookList.get(index).setNoOfBorrower(Integer.parseInt(nobrrwrField.getText()));  
         			}
         		}
     	        book.saveBook();
@@ -261,7 +278,7 @@ public class manageBookRecords extends JPanel {
 								 nobrrwrField.getText()
 							   );
 				book.saveBook();
-				updateTable(model1);
+				displayTable();
 				clearFields();
 				choice.clearSelection();
 			}
@@ -395,7 +412,8 @@ public class manageBookRecords extends JPanel {
         			displayTable();
         		}
         		else {
-        			displaySearchTable();
+        			displayTable();
+       
         		}
         	}
         });
@@ -441,9 +459,11 @@ public class manageBookRecords extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				searchbookField.setText("");
+				choice.clearSelection();		//tinatanggal selected radio button
+				keyword = "";					//tinatanggal yung search keyword
+				clearFields();					//tinatanggal yung laman ng fields
 				displayTable();
-				choice.clearSelection();
-				clearFields();
+				
 			}
 		});
 		clearSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -454,220 +474,118 @@ public class manageBookRecords extends JPanel {
         
 	}
 	
-	private void updateTable(DefaultTableModel model) {
-	    // Clear the existing rows in the table
-	    model.setRowCount(0);
-
-	    // Add data from the bookList to the model
-	    for (CBook book : book.bookList) {
-	    	Object[] row = {
-		        book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
-		        book.getMaterial(), book.getCategory(), book.getShelfNo(), book.getTotalStocks(),
-		        book.getNoOfBorrower()
-	        };
-	        model.addRow(row);
-	    	
-	    }
-	}
-	
 	public void displayTable() {
-		
-		// Remove previous scroll pane if it exists
-	    if (manageBookscrollPane != null) {
-	        remove(manageBookscrollPane);
-	    }
-	    
-	   	manageBookscrollPane = new JScrollPane();
-	   	manageBookscrollPane.setBounds(117, 60, 859, 207);
-        add(manageBookscrollPane);
-      	
-		// Create a DefaultTableModel and specify the column names
-		model1 = new DefaultTableModel(
-				
-		    new Object[][] {},
-		    new String[] {
-		        "Title", "Edition", "Author", "Year", "ISBN", "Material", "Category", "Shelf No."
+		    // Remove previous scroll pane if it exists
+		    if (manageBookscrollPane != null) {
+		        remove(manageBookscrollPane);
 		    }
-		) {
-		    boolean[] columnEditables = new boolean[] {false, false, false, false, false, false, false, false, false};
 
-		    public boolean isCellEditable(int row, int column) {
-		        return columnEditables[column];
-		    }
-		};
-		
-		// Add data from the bookList to the model
-		for (CBook book : book.bookList) {
-			
-		    Object[] row = {
-		        book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
-		        book.getMaterial(), book.getCategory(), book.getShelfNo()
-		    	};
-		    model1.addRow(row);
-			
-		}
+		    manageBookscrollPane = new JScrollPane();
+		    manageBookscrollPane.setBounds(117, 60, 859, 207);
+		    add(manageBookscrollPane);
 
-		// Create the JTable and set the model
-		table1 = new JTable(model1);
+		    // Create a DefaultTableModel and specify the column names
+		    DefaultTableModel model = new DefaultTableModel(
+		            new Object[][]{},
+		            new String[]{"Title", "Edition", "Author", "Year", "ISBN", "Material", "Category", "Shelf No."}
+		    ) {
+		        boolean[] columnEditables = new boolean[]{false, false, false, false, false, false, false, false};
 
-		// Specify the desired widths for each column
-		int[] columnWidths = {150, 30, 100, 30, 120, 80, 80, 20};
+		        public boolean isCellEditable(int row, int column) {
+		            return columnEditables[column];
+		        }
+		    };
 
-		// Set the preferred column widths
-		for (int i = 0; i < columnWidths.length; i++) {
-		    table1.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
-		}
-		
-		//Kapag pinindot ang table lalabas sa fields lahat ng data 
-		// Add a MouseListener to the table
-		table1.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) { 
-		    	
-		        selectedRow = table1.getSelectedRow();
-		        if (selectedRow >= 0) {
-		            titleField.setText((String) table1.getValueAt(selectedRow, 0));
-		            editionField.setText((String) table1.getValueAt(selectedRow, 1));
-		            authorField.setText((String) table1.getValueAt(selectedRow, 2));
-		            yearField.setText((String) table1.getValueAt(selectedRow, 3));
-		            ISBNField.setText((String) table1.getValueAt(selectedRow, 4));
-		            materialField.setText((String) table1.getValueAt(selectedRow, 5));
-		            genreField.setText((String) table1.getValueAt(selectedRow, 6));
-		            shelfField.setText(Integer.toString((int) table1.getValueAt(selectedRow, 7)));
-		            //totalstckField.setText(Integer.toString((int) table.getValueAt(selectedRow, 8)));
-		            //nobrrwrField.setText(Integer.toString((int) table.getValueAt(selectedRow, 9)));
-		            
-		            int totalStock = book.bookList.get(selectedRow).getTotalStocks();
-		            int noBorrower = book.bookList.get(selectedRow).getNoOfBorrower();
-		            int currentStock = totalStock - noBorrower;
-		            totalstckField.setText(Integer.toString(totalStock));
-		            currstckField.setText(Integer.toString(currentStock));
-		            nobrrwrField.setText(Integer.toString(noBorrower));
+		    // Add data from the bookList to the model based on search criteria
+		    for (CBook book : book.bookList) {
+		        String attributeValue = "";
+		        switch (searchChoice) {
+		            case 1:
+		                attributeValue = book.getTitle();
+		                break;
+		            case 2:
+		                attributeValue = book.getAuthor();
+		                break;
+		            case 3:
+		                attributeValue = book.getYearPublished();
+		                break;
+		            case 4:
+		                attributeValue = book.getMaterial();
+		                break;
+		            case 5:
+		                attributeValue = book.getCategory();
+		                break;
+		            default:
+		            	attributeValue = book.getTitle();
+		                break;
+		        }
+		        if (attributeValue.toLowerCase().contains(keyword.toLowerCase())) {
+		            Object[] row = {
+		                    book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
+		                    book.getMaterial(), book.getCategory(), book.getShelfNo()
+		            };
+		            model.addRow(row);
 		        }
 		    }
-		});
-		
-		
-		// Set the JTable as the view of the scroll pane
-		manageBookscrollPane.setViewportView(table1);
-		table1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		 // Make table1 visible
-	    table1.setVisible(true);
 
-	    // Hide table2 if it was previously visible
-	    if (table2 != null) {
-	        table2.setVisible(false);
-	    }
-	}
-	
-	public void displaySearchTable() {
-		
-		 // Remove previous scroll pane if it exists
-        if (manageBookscrollPane != null) {
-            remove(manageBookscrollPane);
-        }
-		
-		manageBookscrollPane = new JScrollPane();
-		manageBookscrollPane.setBounds(117, 60, 859, 207);
-        add(manageBookscrollPane);
-        
-		// Create a DefaultTableModel and specify the column names
-		model2 = new DefaultTableModel(
-				
-		    new Object[][] {},
-		    new String[] {
-		        "Title", "Edition", "Author", "Year", "ISBN", "Material", "Category", "Shelf No."
+		    // Create the JTable and set the model
+		    JTable table = new JTable(model);
+
+		    // Specify the desired widths for each column
+		    int[] columnWidths = {150, 30, 100, 30, 120, 80, 80, 20};
+
+		    // Set the preferred column widths
+		    for (int i = 0; i < columnWidths.length; i++) {
+		        table.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
 		    }
-		) {
-		    boolean[] columnEditables = new boolean[] {false, false, false, false, false, false, false, false, false};
 
-		    public boolean isCellEditable(int row, int column) {
-		        return columnEditables[column];
+		    // Kapag pinindot ang table lalabas sa fields lahat ng data
+		    // Add a MouseListener to the table
+		    table.addMouseListener(new MouseAdapter() {
+		        @Override
+		        public void mouseClicked(MouseEvent e) {
+		            selectedRow = table.getSelectedRow();
+		            if (selectedRow >= 0) {
+		                titleField.setText((String) table.getValueAt(selectedRow, 0));
+		                editionField.setText((String) table.getValueAt(selectedRow, 1));
+		                authorField.setText((String) table.getValueAt(selectedRow, 2));
+		                yearField.setText((String) table.getValueAt(selectedRow, 3));
+		                ISBNField.setText((String) table.getValueAt(selectedRow, 4));
+		                materialField.setText((String) table.getValueAt(selectedRow, 5));
+		                genreField.setText((String) table.getValueAt(selectedRow, 6));
+		                shelfField.setText(Integer.toString((int) table.getValueAt(selectedRow, 7)));
+		                //totalstckField.setText(Integer.toString((int) table.getValueAt(selectedRow, 8)));
+		                //nobrrwrField.setText(Integer.toString((int) table.getValueAt(selectedRow, 9)));
+		                
+		                int index= book.locateBook(ISBNField.getText());				//returns index of the seletec book
+		                int totalStock = book.bookList.get(index).getTotalStocks();
+		                int noBorrower = book.bookList.get(index).getNoOfBorrower();
+		                int currentStock = totalStock - noBorrower;
+		                totalstckField.setText(Integer.toString(totalStock));
+		                currstckField.setText(Integer.toString(currentStock));
+		                nobrrwrField.setText(Integer.toString(noBorrower));
+		                }
+		                }
+		                });
+		    
+		 // Set the JTable as the view of the scroll pane
+		    manageBookscrollPane.setViewportView(table);
+		    table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		    // Make table visible
+		    table.setVisible(true);
+
+		    /*// Hide table1 if it was previously visible
+		    if (table1 != null) {
+		        table1.setVisible(false);
 		    }
-		};
-		
-		// Add data from the bookList to the model
-		for (CBook book : book.bookList) {
-			
-			 switch (searchChoice) {
-	            case 1:
-	                attributeValue = book.getTitle();
-	                break;
-	            case 2:
-	                attributeValue = book.getAuthor();
-	                break;
-	            case 3:
-	                attributeValue = book.getYearPublished();
-	                break;
-	            case 4:
-	                attributeValue = book.getMaterial();
-	                break;
-	            case 5:
-	                attributeValue = book.getCategory();
-	                break;
-	            default:
-	                attributeValue = "";
-	                break;
-	        }
-			if (attributeValue.toLowerCase().contains(keyword.toLowerCase())) {
-			    Object[] row = {
-			        book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
-			        book.getMaterial(), book.getCategory(), book.getShelfNo()
-			    	};
-			    model2.addRow(row);
-			}
-		}
 
-		// Create the JTable and set the model
-		table2 = new JTable(model2);
-
-		// Specify the desired widths for each column
-		int[] columnWidths = {150, 30, 100, 30, 120, 80, 80, 20};
-
-		// Set the preferred column widths
-		for (int i = 0; i < columnWidths.length; i++) {
-		    table2.getColumnModel().getColumn(i).setPreferredWidth(columnWidths[i]);
-		}
-		
-		//Kapag pinindot ang table lalabas sa fields lahat ng data 
-		// Add a MouseListener to the table
-		table2.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) { 
-		    	
-		        selectedRow = table2.getSelectedRow();
-		        if (selectedRow >= 0) {
-		            titleField.setText((String) table2.getValueAt(selectedRow, 0));
-		            editionField.setText((String) table2.getValueAt(selectedRow, 1));
-		            authorField.setText((String) table2.getValueAt(selectedRow, 2));
-		            yearField.setText((String) table2.getValueAt(selectedRow, 3));
-		            ISBNField.setText((String) table2.getValueAt(selectedRow, 4));
-		            materialField.setText((String) table2.getValueAt(selectedRow, 5));
-		            genreField.setText((String) table2.getValueAt(selectedRow, 6));
-		            shelfField.setText(Integer.toString((int) table2.getValueAt(selectedRow, 7)));
-		            //totalstckField.setText(Integer.toString((int) table.getValueAt(selectedRow, 8)));
-		            //nobrrwrField.setText(Integer.toString((int) table.getValueAt(selectedRow, 9)));
-		            
-		            int totalStock = book.bookList.get(selectedRow).getTotalStocks();
-		            int noBorrower = book.bookList.get(selectedRow).getNoOfBorrower();
-		            int currentStock = totalStock - noBorrower;
-		            totalstckField.setText(Integer.toString(totalStock));
-		            currstckField.setText(Integer.toString(currentStock));
-		            nobrrwrField.setText(Integer.toString(noBorrower));
-		        }
+		    // Hide table2 if it was previously visible
+		    if (table2 != null) {
+		        table2.setVisible(false);
 		    }
-		});
-		
-		
-		// Set the JTable as the view of the scroll pane
-		manageBookscrollPane.setViewportView(table2);
-		table2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+*/
 
-	    // Make table2 visible
-	    table2.setVisible(true);
-
-	    // Hide table1 if it was previously visible
-	    table1.setVisible(false);
 	}
 	
 	public void clearFields() {
