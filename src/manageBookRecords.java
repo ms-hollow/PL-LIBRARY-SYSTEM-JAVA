@@ -61,10 +61,7 @@ public class manageBookRecords extends JPanel {
     private String searchedISBN;
 	private int searchChoice;
 	
-    
-	/**
-	 * Create the panel.
-	 */
+   
 	public manageBookRecords() {
 		
 		setBounds(0, 0, 1005, 480);
