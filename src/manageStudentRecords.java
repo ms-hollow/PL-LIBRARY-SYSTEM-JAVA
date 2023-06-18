@@ -107,7 +107,7 @@ public class manageStudentRecords extends JPanel {
         updateBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         				
-        		if(!borrower.checkBorrowerFieldsStudRec(
+        		if(!borrower.checkBorrowerStudFields(
         								nameField.getText(),
 						 				tupIDField.getText(),
 						 				courseSecField.getText(),
