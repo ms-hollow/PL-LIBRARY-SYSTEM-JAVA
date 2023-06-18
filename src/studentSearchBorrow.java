@@ -160,8 +160,10 @@ public class studentSearchBorrow extends JPanel {
         borrowBtn.setBounds(833, 439, 128, 23);
         borrowBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	transaction.getInfoTransaction();
+            	transaction.getInfoTransaction(titleField.getText(), authorField.getText(), ISBNField.getText());
             	transaction.saveTransaction();
+            	clearFields();
+            	
             }
         });
 

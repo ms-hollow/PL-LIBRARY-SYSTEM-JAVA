@@ -35,7 +35,7 @@ public class CTransaction {
     private String refNum;
     private String status;
     public static int accountIndex;		//public static para ma-access directly ng logIn.
-  
+    public static int bookIndex;
 
     public CTransaction(String title, String author, String ISBN, String borrower, String TUP_ID, String dateBorrowed, String dateToReturn, String librarian, String refNum, String status) {
         this.title = title;
@@ -63,6 +63,7 @@ public class CTransaction {
     public String getRefNum() {return refNum;}
     public String getStatus() {return status;}
     public int getAccountIndex() {return accountIndex;}
+    public int getBookIndex() {return bookIndex;}
  
     //SETTERS
     public void setTitle(String update) {this.title= update;}
@@ -75,12 +76,14 @@ public class CTransaction {
     public void setLibrarian(String update) {this.librarian= update;}
     public void setRefNum(String update) {this.refNum= update;}
     public void setStatus(String update) {this.status= update;}
+    
 
     //METHODS
-    public void getInfoTransaction() {
+    public void getInfoTransaction(String selectedTitle, String selectedAuthor, String selectedISBN) {
     	//Gets the logged in account of the current user.
     	int index = getAccountIndex();			//direct change ng variable.
-
+    	int bookIndex =  getBookIndex();
+    	
     	JPanel panel = new JPanel();
     	panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -102,19 +105,23 @@ public class CTransaction {
     	yearSectionLabel.setFont(new Font("Arial", Font.PLAIN, 12));
     	panel.add(yearSectionLabel);
 
-    	JTextField titleField = new JTextField();
+
+    	JTextField titleField = new JTextField(selectedTitle);
     	titleField.setPreferredSize(new Dimension(500, 30));
     	panel.add(new JLabel("Book to Borrow"));
+    	titleField.setEditable(false);
     	panel.add(titleField);
 
-    	JTextField authorField = new JTextField();
+    	JTextField authorField = new JTextField(selectedAuthor);
     	authorField.setPreferredSize(new Dimension(500, 30));
     	panel.add(new JLabel("Book Author"));
+    	authorField.setEditable(false);
     	panel.add(authorField);
 
-    	JTextField isbnField = new JTextField();
+    	JTextField isbnField = new JTextField(selectedISBN);
     	isbnField.setPreferredSize(new Dimension(500, 30));
     	panel.add(new JLabel("ISBN"));
+    	isbnField.setEditable(false);
     	panel.add(isbnField);
 
     	JTextField dateBorrowedField = new JTextField();
@@ -133,7 +140,7 @@ public class CTransaction {
     	panel.add(new JLabel("Enter Date to Return"));
     	panel.add(dateToReturnField);
 
-    	JButton calendarButton = new JButton();
+    	JButton calendarButton = new JButton("Calendar");
     	calendarButton.setPreferredSize(new Dimension(30, dateToReturnField.getPreferredSize().height));
     	calendarButton.addActionListener(new ActionListener() {
     	    public void actionPerformed(ActionEvent e) {
@@ -216,8 +223,12 @@ public class CTransaction {
 	            //if greater than 3 na nahiram niyang book
 	        }*/
 
-	        String displayMessage = "\n" +
-	        			"\nReference Number: "		+ generateRefNum() + "\n" +
+	        String displayMessage =
+	        			"\nReference Number: "		+ generateRefNum() + "\n\n" +
+	        		
+						"Name: "		+ CBorrower.borrowerList.get(index).getName() + "\n" +
+						"TUP ID: "		+ CBorrower.borrowerList.get(index).getTUP_ID() + "\n" +
+						"Year and Section: "		 + CBorrower.borrowerList.get(index).getYearSection() + "\n\n" +
     	                "Title of the book: "		+ title + "\n" +
     	                "Author of the Book: "		+ author + "\n" +
     	                "ISBN of the book: "		+ isbn + "\n" +
@@ -326,7 +337,7 @@ public class CTransaction {
 	            case 6: transactionList.get(index).setDateBorrowed(updatedInfo);
         				break;
 	            case 7: transactionList.get(index).setDateToReturn(updatedInfo);
-        				break;
+        				break;123412
 	            case 8: transactionList.get(index).setLibrarian(updatedInfo);
         				break;
 	            case 9: transactionList.get(index).setStatus(updatedInfo);
