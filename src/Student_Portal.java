@@ -37,6 +37,7 @@ public class Student_Portal extends JFrame {
 	 */
 	public static void main(String[] args) {
 		book.retrieveBook();
+		borrower.retrieveBorrower();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

@@ -189,4 +189,51 @@ public class CBorrower {
 
 	}
 	
+	public int changePassBorrower(String TUP_ID, String password, String newpass, String reEnterpass) {
+    	
+    	int tries=3,  flag= 0;
+    	
+    	while (tries > 0) {
+    	System.out.print("Enter your old password: ");
+	    String currPass = scanner.nextLine();
+    	
+	    if(!currPass.equals(password)) {		//if di equal pass at password from database
+        	JOptionPane.showMessageDialog(null, "PASSWORD DIDN'T MATCH!", "Change Password", JOptionPane.ERROR_MESSAGE);	//ERROR MESSAGE
+        	 tries--;
+ 	         System.out.printf("YOU HAVE %d TRIES LEFT.%n", tries);
+ 	         System.out.println();
+            }
+	    
+    	}
+    	if (tries == 0) {
+    	    System.out.println("YOU HAVE EXCEEDED THE MAXIMUM NUMBER OF TRIES.");
+    	    System.out.println();
+    	}
+    	
+    	
+    	System.out.print("Enter your new password: ");
+	    String newPass = scanner.nextLine();
+	    
+	    
+	    System.out.print("Re-enter your new password: ");
+	    String rePass = scanner.nextLine();
+	    
+	    if(!rePass.equals(newPass)) {		//if di equal pass at password from database
+        	JOptionPane.showMessageDialog(null, "PASSWORD DIDN'T MATCH!", "Change Password", JOptionPane.ERROR_MESSAGE);	//ERROR MESSAGE
+        	 tries--;
+	         System.out.printf("YOU HAVE %d TRIES LEFT.%n", tries);
+	         System.out.println();
+            }
+	    else {
+	    	JOptionPane.showMessageDialog(null, "CHANGE PASSWORD SUCCESSFULLY!", "Change Password", JOptionPane.INFORMATION_MESSAGE);
+	        flag = 1;
+	        saveBorrower();
+	    }
+	    if (tries == 0) {
+    	    System.out.println("YOU HAVE EXCEEDED THE MAXIMUM NUMBER OF TRIES.");
+    	    System.out.println();
+    	}
+	    return flag;
+	    	
+	}
 }
