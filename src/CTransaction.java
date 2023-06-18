@@ -264,7 +264,7 @@ public class CTransaction {
             long remainingDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
             if (remainingDays >= 0) {
-                return (int) remainingDays;
+                return (int) remainingDays+1;
             } else {
                 return 0; // 0 value indicates overdue
             }

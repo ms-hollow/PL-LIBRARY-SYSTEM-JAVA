@@ -293,24 +293,28 @@ public class manageTransactionRecords extends JPanel {
         titleField.setBounds(223, 278, 315, 20);
         titleField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         titleField.setColumns(10);
+        titleField.setEditable(false);
         add(titleField);
         
         ISBNField = new JTextField();
         ISBNField.setBounds(223, 311, 315, 20);
         ISBNField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         ISBNField.setColumns(10);
+        ISBNField.setEditable(false);
         add(ISBNField);
         
         TUP_IDField = new JTextField();
         TUP_IDField.setBounds(223, 370, 315, 20);
         TUP_IDField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         TUP_IDField.setColumns(10);
+        TUP_IDField.setEditable(false);
         add(TUP_IDField);
         
         borrowerField = new JTextField();
         borrowerField.setBounds(223, 401, 315, 20);
         borrowerField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         borrowerField.setColumns(10);
+        borrowerField.setEditable(false);
         add(borrowerField);
         
         dateToReturnField = new JTextField();
@@ -329,6 +333,7 @@ public class manageTransactionRecords extends JPanel {
         remainingField.setBounds(663, 339, 64, 20);
         remainingField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         remainingField.setColumns(10);
+        remainingField.setEditable(false);
         add(remainingField);
         
         searchbookField = new JTextField();
@@ -399,6 +404,7 @@ public class manageTransactionRecords extends JPanel {
 	    authorField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 	    authorField.setColumns(10);
 	    authorField.setBounds(223, 342, 315, 20);
+	    authorField.setEditable(false);
 	    add(authorField);
 	    
 	    JLabel ISBNbookReclbl_1 = new JLabel("Author");
@@ -415,6 +421,7 @@ public class manageTransactionRecords extends JPanel {
 	    referenceField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 	    referenceField.setColumns(10);
 	    referenceField.setBounds(829, 339, 132, 20);
+	    referenceField.setEditable(false);
 	    add(referenceField);
 	    
 	    JLabel lblReferenceNo = new JLabel("Reference no.");
@@ -426,9 +433,9 @@ public class manageTransactionRecords extends JPanel {
 	    librarianField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 	    librarianField.setColumns(10);
 	    librarianField.setBounds(663, 373, 298, 20);
+	    librarianField.setEditable(false);
 	    add(librarianField);
-	    
-        
+	           
         
 	}
 	
