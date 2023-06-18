@@ -147,7 +147,7 @@ public class Student_Portal extends JFrame {
         MENU.add(changePassMenu);
         changePassMenu.setLayout(null);
         
-        studentChangePasslbl = new JLabel("Manage Student Records");
+        studentChangePasslbl = new JLabel("Change password");
         studentChangePasslbl.setForeground(new Color(255, 245, 238));
         studentChangePasslbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 15));
         studentChangePasslbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -176,7 +176,7 @@ public class Student_Portal extends JFrame {
 	
 	public void menuClicked(JPanel panel) {
 		studentDisplayBooks.setVisible(false);
-		studentDisplayBooks.setVisible(false);
+		studentSearchBorrow.setVisible(false);
 		studentChangePass.setVisible(false);
 
         panel.setVisible(true);

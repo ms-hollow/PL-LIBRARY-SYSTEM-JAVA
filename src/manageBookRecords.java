@@ -44,10 +44,6 @@ public class manageBookRecords extends JPanel {
 	private JScrollPane manageBookscrollPane;
 	private DefaultTableModel model;
 	private JTable table;
-	private DefaultTableModel model1;
-	private JTable table1;
-	private DefaultTableModel model2;
-	private JTable table2;
 	private ButtonGroup choice;
 	private int selectedRow;
 	private JPanel manageBookscrollPaneSearch;
@@ -58,7 +54,6 @@ public class manageBookRecords extends JPanel {
     private JRadioButton genreBtn;
     private String attributeValue;
     private String keyword = "";
-    private String searchedISBN;
 	private int searchChoice;
 	
    
@@ -494,6 +489,7 @@ public class manageBookRecords extends JPanel {
 		    };
 
 		    // Add data from the bookList to the model based on search criteria
+		    boolean ifNoMatch=true;
 		    for (CBook book : book.bookList) {
 		        String attributeValue = "";
 		        switch (searchChoice) {
@@ -516,7 +512,9 @@ public class manageBookRecords extends JPanel {
 		            	attributeValue = book.getTitle();
 		                break;
 		        }
+		  
 		        if (attributeValue.toLowerCase().contains(keyword.toLowerCase())) {
+		        	ifNoMatch= false;
 		            Object[] row = {
 		                    book.getTitle(), book.getEdition(), book.getAuthor(), book.getYearPublished(), book.getISBN(),
 		                    book.getMaterial(), book.getCategory(), book.getShelfNo()
@@ -524,6 +522,11 @@ public class manageBookRecords extends JPanel {
 		            model.addRow(row);
 		        }
 		    }
+		    
+	        if(ifNoMatch) {
+	        	JOptionPane.showMessageDialog(null, "NO MATCHING BOOKS FOUND.", "Search Book", JOptionPane.INFORMATION_MESSAGE);
+	        	selectedRow=-1;			//para if nag-pindot button nang walnag matching book.
+	        }
 
 		    // Create the JTable and set the model
 		    JTable table = new JTable(model);
