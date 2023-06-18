@@ -35,11 +35,13 @@ public class Admin_Portal extends JFrame {
     private JLabel ADMINlbl;
     
     private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
-
+    private static CBorrower borrower = new CBorrower("","","","","","");
+    
     public static void main(String[] args) {
     	
     	//--------MAIN MAGRE-RETRIEVE NG LIST---------------//
     	book.retrieveBook();
+    	borrower.retrieveBorrower();
     	
         EventQueue.invokeLater(new Runnable() {
             public void run() {

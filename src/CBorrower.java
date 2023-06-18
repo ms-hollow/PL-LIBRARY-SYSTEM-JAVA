@@ -176,4 +176,17 @@ public class CBorrower {
 			return true;}
 
 	}
+	public boolean checkBorrowerStudFields(String name, String TUP_ID, String yearSection, String contactNum, String email) {
+		if(	name.equals("") ||
+			TUP_ID.equals("") ||
+			yearSection.equals("") ||
+			contactNum.equals("") ||
+			email.equals("")
+			) {
+			return false;}
+		else {
+			return true;}
+
+	}
+	
 }
