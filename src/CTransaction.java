@@ -36,6 +36,7 @@ public class CTransaction {
     private String status;
     public static int accountIndex;		//public static para ma-access directly ng logIn.
     public static int bookIndex;
+    //public static String refNum1;
 
     public CTransaction(String title, String ISBN, String TUP_ID, String dateBorrowed, String dateToReturn, String status, String borrower, String author,  String librarian, String refNum) {
         this.title = title;
@@ -226,9 +227,9 @@ public class CTransaction {
 	        /*else if(){
 	            //if greater than 3 na nahiram niyang book
 	        }*/
-	        setRefNum(generateRefNum());
+	        String refNum=  generateRefNum();
 	        String displayMessage =
-	        			"\nReference Number: "		+ getRefNum() + "\n\n" +
+	        			"\nReference Number: "		+ refNum + "\n\n" +
 	        		
 						"Name: "		+ CBorrower.borrowerList.get(index).getName() + "\n" +
 						"TUP ID: "		+ CBorrower.borrowerList.get(index).getTUP_ID() + "\n" +

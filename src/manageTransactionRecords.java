@@ -442,9 +442,9 @@ public class manageTransactionRecords extends JPanel {
 		    // Create a DefaultTableModel and specify the column names
 		    DefaultTableModel model = new DefaultTableModel(
 		            new Object[][]{},
-		            new String[]{"Title", "ISBN", "TUP_ID", "Date Borrowed", "Date to Return", "Status"}
+		            new String[]{"Title", "ISBN", "TUP_ID", "Date Borrowed", "Date to Return", "Status", "RefNum"}
 		    ) {
-		        boolean[] columnEditables = new boolean[]{false, false, false, false, false, false};
+		        boolean[] columnEditables = new boolean[]{false, false, false, false, false, false, false};
 
 		        public boolean isCellEditable(int row, int column) {
 		            return columnEditables[column];
@@ -480,7 +480,7 @@ public class manageTransactionRecords extends JPanel {
 		        	ifNoMatch= false;
 		            Object[] row = {
 		            		transaction.getTitle(), transaction.getISBN(), transaction.getTUP_ID(), transaction.getDateBorrowed(), 
-		            		transaction.getDateToReturn(), transaction.getStatus()
+		            		transaction.getDateToReturn(), transaction.getStatus(), transaction.getRefNum()
 		            };
 		            model.addRow(row);
 		        }
@@ -495,7 +495,7 @@ public class manageTransactionRecords extends JPanel {
 		    JTable table = new JTable(model);
 
 		    // Specify the desired widths for each column
-		    int[] columnWidths = {150, 30, 100, 30, 120, 80};
+		    int[] columnWidths = {150, 30, 100, 30, 120, 80, 80};
 
 		    // Set the preferred column widths
 		    for (int i = 0; i < columnWidths.length; i++) {
@@ -515,16 +515,18 @@ public class manageTransactionRecords extends JPanel {
 		                dateBorrowedField.setText((String) table.getValueAt(selectedRow, 3));
 		                dateToReturnField.setText((String) table.getValueAt(selectedRow, 4));
 		                statusField.setText((String) table.getValueAt(selectedRow, 5));
-		                
+		                referenceField.setText((String) table.getValueAt(selectedRow, 6));
 		                
 		                //totalstckField.setText(Integer.toString((int) table.getValueAt(selectedRow, 8)));
 		                //nobrrwrField.setText(Integer.toString((int) table.getValueAt(selectedRow, 9)));
 		                
 		                int index= transaction.locateTransaction(referenceField.getText());				//returns index of the seletec book
-		                String borrower = transaction.transactionList.get(index).getBorrower();
-		                String author = transaction.transactionList.get(index).getAuthor();
-		                String librarian = transaction.transactionList.get(index).getLibrarian();
-		                String refNum = transaction.transactionList.get(index).getRefNum();
+		                borrowerField.setText(transaction.transactionList.get(index).getBorrower());
+		                authorField.setText(transaction.transactionList.get(index).getAuthor());
+		                librarianField.setText(transaction.transactionList.get(index).getLibrarian());
+		                referenceField.setText(transaction.transactionList.get(index).getRefNum());
+		                int remaining= transaction.calculateRemainingDays(dateToReturnField.getText());
+		                remainingField.setText(String.valueOf(remaining));
 		                //SET FIELD NG REMAINING DAYS
 	
 		                }
