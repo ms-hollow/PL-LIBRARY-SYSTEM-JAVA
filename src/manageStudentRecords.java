@@ -24,7 +24,7 @@ public class manageStudentRecords extends JPanel {
 	private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book 
 	private static CBorrower borrower = new CBorrower("","","","","","");  
 	
-	private JTextField searchbookField;
+	private JTextField searchborrowerField;
 	private JTextField tupIDField;
 	private JTextField nameField;
 	private JTextField courseSecField;
@@ -36,6 +36,7 @@ public class manageStudentRecords extends JPanel {
 	private JScrollPane manageStudentscrollPane;
 	private int selectedRow;
 	private String TUP_ID;
+	private String searchTUP_ID = "";
 	/**
 	 * Create the panel.
 	 */
@@ -58,7 +59,10 @@ public class manageStudentRecords extends JPanel {
 		clearSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				searchbookField.setText("");
+				searchborrowerField.setText("");
+				TUP_ID = "";
+				clearFields();
+				displayTable();
 			}
 		});
 		clearSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -123,8 +127,8 @@ public class manageStudentRecords extends JPanel {
 		    	        borrower.borrowerList.get(index).setEmail(emailField.getText());
         			}
         		}
+        		borrower.saveBorrower(); 
         		displayTable();
-        		borrower.saveBorrower();  	 
         	}
         });
         updateBtn.setForeground(Color.WHITE);
@@ -211,14 +215,27 @@ public class manageStudentRecords extends JPanel {
         book3Field.setBounds(608, 336, 315, 20);
         add(book3Field);
         
-        searchbookField = new JTextField();
-        searchbookField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        searchbookField.setColumns(10);
-        searchbookField.setBounds(130, 15, 677, 31);
-        add(searchbookField);
+        searchborrowerField = new JTextField();
+        searchborrowerField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        searchborrowerField.setColumns(10);
+        searchborrowerField.setBounds(130, 15, 677, 31);
+        add(searchborrowerField);
         
         ///change to image
         JButton searchBtn_2 = new JButton("Search");
+        searchBtn_2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		searchTUP_ID = searchborrowerField.getText();
+        		if (searchborrowerField.getText().isEmpty()) {
+        			displayTable();
+        		}
+        		else {
+        			displayTable();
+       
+        		}
+        	}
+        });
         searchBtn_2.setForeground(Color.WHITE);
         searchBtn_2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         searchBtn_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -267,15 +284,17 @@ public class manageStudentRecords extends JPanel {
 	            return columnEditables[column];
 	        }
 	    };
-
 	    // Add data from the bookList to the model based on search criteria
 	    for (CBorrower borrower : borrower.borrowerList) { 
+	    	String TUP_IDVal = "";
+		    TUP_IDVal = borrower.getTUP_ID();
+	    	if (TUP_IDVal.contains(searchTUP_ID)) {
             Object[] row = {
             borrower.getName(), borrower.getTUP_ID(), borrower.getYearSection(), borrower.getContactNum(), borrower.getEmail()
             };
             model.addRow(row);
+	    	}
 	    }
-
 	    // Create the JTable and set the model
 	    JTable table = new JTable(model);
 
@@ -322,6 +341,6 @@ public class manageStudentRecords extends JPanel {
 			emailField.setText("");
 			book1Field.setText("");
 			book2Field.setText("");
-			searchbookField.setText("");
+			searchborrowerField.setText("");
 		}
 }
