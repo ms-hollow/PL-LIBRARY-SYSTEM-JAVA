@@ -14,10 +14,12 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class manageStudentRecords extends JPanel {
 	
@@ -329,7 +331,9 @@ public class manageStudentRecords extends JPanel {
 
 	    // Make table visible
 	    table.setVisible(true);
-
+	    
+	    
+	    //displayBookBorrowed("a");
 
 }
 		public void clearFields() {
@@ -343,4 +347,38 @@ public class manageStudentRecords extends JPanel {
 			book2Field.setText("");
 			searchborrowerField.setText("");
 		}
+		
+	    public void displayBookBorrowed(String tupID) {
+	        ArrayList<String> borrowedBooks = new ArrayList<>();
+	        
+	        for (CTransaction transaction : CTransaction.transactionList) {
+	            if (transaction.getTUP_ID().equals(tupID)) {
+	                borrowedBooks.add(transaction.getTitle());
+	            }
+	        }
+	        
+	        // Display the recent three books borrowed
+	        int numBooks = borrowedBooks.size();
+	        
+	        if (numBooks >= 1) {
+	            book1Field.setText(borrowedBooks.get(numBooks - 1));
+	        } else {
+	            book1Field.setText("");
+	        }
+	        
+	        if (numBooks >= 2) {
+	            book2Field.setText(borrowedBooks.get(numBooks - 2));
+	        } else {
+	            book2Field.setText("");
+	        }
+	        
+	        if (numBooks >= 3) {
+	            book3Field.setText(borrowedBooks.get(numBooks - 3));
+	        } else {
+	            book3Field.setText("");
+	        }
+	    }
+
+
+		//END OF CLASS
 }

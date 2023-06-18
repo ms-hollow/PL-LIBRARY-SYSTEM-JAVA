@@ -439,12 +439,14 @@ public class CTransaction {
                 			
                 			transaction.getTitle() + "," +
                 			transaction.getISBN() + "," +
-                			CBorrower.borrowerList.get(index).getTUP_ID() + "," +
+                			transaction.getTUP_ID() + "," +
+                			//CBorrower.borrowerList.get(index).getTUP_ID() + "," +
                 			transaction.getDateBorrowed() + "," +
                 			transaction.getDateToReturn() + "," +
                 			transaction.getStatus() + "," +
                 			transaction.getRefNum() + "," +
-                			CBorrower.borrowerList.get(index).getName() + "," +
+                			transaction.getBorrower() + "," +
+                			//CBorrower.borrowerList.get(index).getName() + "," +
                 			transaction.getAuthor() + "," +
                 			transaction.getLibrarian() + "\n" ;
                 			
