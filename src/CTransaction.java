@@ -38,17 +38,17 @@ public class CTransaction {
     public static int bookIndex;
     //public static String refNum1;
 
-    public CTransaction(String title, String ISBN, String TUP_ID, String dateBorrowed, String dateToReturn, String status, String borrower, String author,  String librarian, String refNum) {
+    public CTransaction(String title, String ISBN, String TUP_ID, String dateBorrowed, String dateToReturn, String status, String refNum, String borrower, String author,  String librarian) {
         this.title = title;
-        this.author = author;
         this.ISBN = ISBN;
-        this.borrower = borrower;
         this.TUP_ID = TUP_ID;
         this.dateBorrowed = dateBorrowed;
         this.dateToReturn = dateToReturn;
-        this.librarian = librarian;
-        this.refNum = refNum;
         this.status= status;
+        this.refNum = refNum;
+        this.borrower = borrower;
+        this.author = author;
+        this.librarian = librarian;
     }
     
 
@@ -213,7 +213,7 @@ public class CTransaction {
     	    
 
             // Check transaction fields
-	        if (!checkTransactionFields(title, ISBN , TUP_ID, dateBorrowed, dateToReturn, status, borrower, author, librarian, "-")) {
+	        if (!checkTransactionFields(title, ISBN , TUP_ID, dateBorrowed, dateToReturn, status, "-", borrower, author, librarian)) {
 	            JOptionPane.showMessageDialog(null, "PLEASE FILL IN ALL FIELDS", "Borrow book", JOptionPane.ERROR_MESSAGE);
 	            continue;
 	        }
@@ -245,7 +245,7 @@ public class CTransaction {
 
 	        JOptionPane.showMessageDialog(null, displayMessage, "Statement of Transaction", JOptionPane.INFORMATION_MESSAGE);
 	        int remainingDays = calculateRemainingDays(dateToReturn); 
-	        addTransaction(title, author, ISBN, borrower, TUP_ID, dateBorrowed, dateToReturn, librarian, refNum, status); //after makuha info, i-add na.
+	        addTransaction(title, ISBN, TUP_ID, dateBorrowed, dateToReturn, status, refNum, borrower, author, librarian); //after makuha info, i-add na.
 	        saveTransaction();
 	        JOptionPane.showMessageDialog(null, "TRANSACTION SUCCESSFULLY SUBMITTED. PROCEED TO THE LIBRARIAN TO APPROVE TRANSACTION", "Borrow Book", JOptionPane.INFORMATION_MESSAGE);
 	        // PUNTA SA NEXT FRAME
@@ -275,8 +275,8 @@ public class CTransaction {
     }
 
 
-    public void addTransaction(String title, String author, String ISBN, String borrower, String TUP_ID, String dateBorrowed, String dateToReturn, String librarian, String refNum,  String status) {
-    	CTransaction newTransaction = new CTransaction(title, author, ISBN, borrower, TUP_ID, dateBorrowed, dateToReturn, librarian, refNum, status);
+    public void addTransaction(String title, String ISBN, String TUP_ID, String dateBorrowed, String dateToReturn, String status, String refNum, String borrower, String author,  String librarian) {
+    	CTransaction newTransaction = new CTransaction(title, ISBN, TUP_ID, dateBorrowed, dateToReturn, status, refNum, borrower, author, librarian);
         int index = 0;
         
         // Find the index where the new transactionshould be inserted alphabetically based on the title
@@ -360,7 +360,7 @@ public class CTransaction {
 	public int locateTransaction(String refNum) {
 	    for (int i = 0; i < transactionList.size(); i++) {
 	        CTransaction transaction= transactionList.get(i);					//create instance of CBook, then kinuha current index
-	        if (transaction.getISBN().equals(ISBN)) {				//compare sa hinahanap
+	        if (transaction.getRefNum().equals(refNum)) {				//compare sa hinahanap
 	            return i; 									// Return the index if ISBN matches
 	        }
 	    }
@@ -443,10 +443,11 @@ public class CTransaction {
                 			transaction.getDateBorrowed() + "," +
                 			transaction.getDateToReturn() + "," +
                 			transaction.getStatus() + "," +
-                			CBorrower.borrowerList.get(index).getTUP_ID() + "," +
+                			transaction.getRefNum() + "," +
+                			CBorrower.borrowerList.get(index).getName() + "," +
                 			transaction.getAuthor() + "," +
-                			transaction.getLibrarian() +"," +
-                			transaction.getRefNum() + "\n" ;
+                			transaction.getLibrarian() + "\n" ;
+                			
                 
 
 
@@ -491,7 +492,7 @@ public class CTransaction {
 	}
 	
 	//checks if may laman lahat ng fields.
-	public boolean checkTransactionFields(String title, String ISBN, String TUP_ID, String dateBorrowed, String dateToReturn, String status, String borrower, String author,  String librarian, String refNum) {
+	public boolean checkTransactionFields(String title, String ISBN, String TUP_ID, String dateBorrowed, String dateToReturn, String status, String refNum, String borrower, String author,  String librarian) {
 		if(	
 
 				title.equals("")||

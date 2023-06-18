@@ -471,6 +471,12 @@ public class manageTransactionRecords extends JPanel {
 		            case 5:
 		                attributeValue = transaction.getDateToReturn();
 		                break;
+		            case 6:
+		            	attributeValue = transaction.getStatus();
+		                break;
+		            case 7:
+		            	attributeValue = transaction.getRefNum();
+		                break;
 		            default:
 		            	attributeValue = transaction.getTitle();
 		                break;
@@ -495,7 +501,7 @@ public class manageTransactionRecords extends JPanel {
 		    JTable table = new JTable(model);
 
 		    // Specify the desired widths for each column
-		    int[] columnWidths = {150, 30, 100, 30, 120, 80, 80};
+		    int[] columnWidths = {50, 30, 30, 30, 30, 30, 30};
 
 		    // Set the preferred column widths
 		    for (int i = 0; i < columnWidths.length; i++) {
@@ -565,7 +571,9 @@ public class manageTransactionRecords extends JPanel {
 		authorField.setText("");
 		librarianField.setText("");
 		referenceField.setText("");
+		remainingField.setText("");
 		searchbookField.setText("");
+		
 	
 	}
 }
