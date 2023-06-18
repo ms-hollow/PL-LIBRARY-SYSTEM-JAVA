@@ -35,6 +35,7 @@ public class CBorrower {
     public String getContactNum() {return contactNum;}
     public String getEmail() {return email;}
 
+
     //SETTERS
     public void setName(String update) {this.name= update;}
     public void setTUP_ID(String update) {this.TUP_ID= update;}
@@ -42,6 +43,7 @@ public class CBorrower {
     public void setYearSection(String update) {this.yearSection= update;}
     public void setContactNum(String update) {this.contactNum= update;}
     public void setEmail(String update) {this.email= update;}
+ 
     
     //METHODS
      
@@ -176,4 +178,6 @@ public class CBorrower {
 			return true;}
 
 	}
+	
+	
 }

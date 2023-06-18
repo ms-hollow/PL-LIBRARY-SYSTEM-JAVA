@@ -33,6 +33,7 @@ public class LoginFrame extends JFrame {
 
 	private static CBorrower borrower = new CBorrower("","","","","","");  
 	private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
+	
 	/**
 	 * Launch the application.
 	 */
@@ -127,8 +128,9 @@ public class LoginFrame extends JFrame {
 				else {
 					if (borrower.loginBorrower(TUPID_Field.getText(), String.valueOf(password_Field.getPassword()))) {
 							
-					//int position = borrower.locateBorrower(Log_IDField.getText()); - papasa na value na current account
-					Student_MainFrame student = new Student_MainFrame(); //punta sa student main frame
+					CTransaction.accountIndex= borrower.locateBorrower(TUPID_Field.getText()); 		//sets the accountIndex ng CTransaction, para makuha ron ang account.
+						
+					Student_Portal student = new Student_Portal(); //punta sa student main frame
 					student.setVisible(true);
 					student.setLocationRelativeTo(null);
 					setVisible(false);

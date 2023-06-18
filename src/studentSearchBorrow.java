@@ -22,6 +22,8 @@ import javax.swing.table.DefaultTableModel;
 public class studentSearchBorrow extends JPanel {
 	
 	private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book 
+	private static CTransaction transaction = new CTransaction("","","","","","","","","","");
+	
 	
 	private JPanel contentPanel;
 	private JTextField titleField;
@@ -158,24 +160,9 @@ public class studentSearchBorrow extends JPanel {
         borrowBtn.setBounds(833, 439, 128, 23);
         borrowBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (selectedRow == -1) {
-                    JOptionPane.showMessageDialog(null, "PLEASE SELECT A ROW", "Delete Book", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    int choice = JOptionPane.showConfirmDialog(null, "ARE YOU SURE TO DELETE THE INFORMATION?", "Delete Book", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                    if (choice == JOptionPane.YES_OPTION) {
-                    	
-                    	int index= book.locateBook(ISBNField.getText());	//returns index of the seletec book
-                        CBook selectedBook = book.bookList.get(index); // Get the selected book from the bookList
-                        book.bookList.remove(selectedBook); // Remove the selected book from the bookList
-                        JOptionPane.showMessageDialog(null, "SELECTED BOOK IS DELETED SUCCESSFULLY!", "Delete Book", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    book.saveBook();
-                    displayTable();
-                    clearFields();
-                }
+            	transaction.getInfoTransaction();
             }
         });
-
 
 
         borrowBtn.setForeground(Color.WHITE);
@@ -467,9 +454,10 @@ public class studentSearchBorrow extends JPanel {
 		                totalstckField.setText(Integer.toString(totalStock));
 		                currstckField.setText(Integer.toString(currentStock));
 		                nobrrwrField.setText(Integer.toString(noBorrower));
-		                }
-		                }
-		                });
+		                CTransaction.selectedRow = selectedRow;
+	                }
+                }
+            });
 		    
 		 // Set the JTable as the view of the scroll pane
 		    manageBookscrollPane.setViewportView(table);
