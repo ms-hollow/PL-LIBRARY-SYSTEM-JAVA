@@ -215,10 +215,13 @@ public class manageBookRecords extends JPanel {
         				book.bookList.get(index).setShelfNo(Integer.parseInt(shelfField.getText()));
         				book.bookList.get(index).setTotalStocks(Integer.parseInt(totalstckField.getText()));
         				book.bookList.get(index).setNoOfBorrower(Integer.parseInt(nobrrwrField.getText()));  
-        			}
+        				
+        				book.saveBook();
+            	        displayTable();
+            	        JOptionPane.showMessageDialog(null, "SELECTED BOOK IS UPDATED SUCCESSFULLY!", "Update Book", JOptionPane.INFORMATION_MESSAGE);
+		        	}
         		}
-    	        book.saveBook();
-    	        displayTable();
+    	        
         	}
         });
         updateBtn.setForeground(Color.WHITE);

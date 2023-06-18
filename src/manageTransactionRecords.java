@@ -234,10 +234,13 @@ public class manageTransactionRecords extends JPanel {
 		        		transaction.transactionList.get(index).setLibrarian(librarianField.getText());
 		        		transaction.transactionList.get(index).setRefNum(referenceField.getText());
 		        		//PARA SA REMAINING DAYS
+		        		
+		    	        transaction.saveTransaction();
+		    	        displayTable();
+		    	        JOptionPane.showMessageDialog(null, "SELECTED BOOK IS UPDATED SUCCESSFULLY!", "Update Book", JOptionPane.INFORMATION_MESSAGE);
         			}
         		}
-    	        transaction.saveTransaction();
-    	        displayTable();
+
         	}
         });
         updateBtn.setForeground(Color.WHITE);
