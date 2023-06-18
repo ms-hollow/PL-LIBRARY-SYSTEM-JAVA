@@ -161,6 +161,7 @@ public class studentSearchBorrow extends JPanel {
         borrowBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	transaction.getInfoTransaction();
+            	transaction.saveTransaction();
             }
         });
 
@@ -454,10 +455,9 @@ public class studentSearchBorrow extends JPanel {
 		                totalstckField.setText(Integer.toString(totalStock));
 		                currstckField.setText(Integer.toString(currentStock));
 		                nobrrwrField.setText(Integer.toString(noBorrower));
-		                CTransaction.selectedRow = selectedRow;
-	                }
-                }
-            });
+		                }
+		                }
+		                });
 		    
 		 // Set the JTable as the view of the scroll pane
 		    manageBookscrollPane.setViewportView(table);

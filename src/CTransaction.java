@@ -35,7 +35,7 @@ public class CTransaction {
     private String refNum;
     private String status;
     public static int accountIndex;		//public static para ma-access directly ng logIn.
-    public static int selectedRow;		//public static para ma-access directly ng logIn.
+  
 
     public CTransaction(String title, String author, String ISBN, String borrower, String TUP_ID, String dateBorrowed, String dateToReturn, String librarian, String refNum, String status) {
         this.title = title;
