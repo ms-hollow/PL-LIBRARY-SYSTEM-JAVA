@@ -10,9 +10,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -34,9 +37,8 @@ public class LoginFrame extends JFrame {
 	private static CBorrower borrower = new CBorrower("","","","","","");  
 	private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
 	private static CTransaction transaction = new CTransaction("","","","","","","","","","");
-	/**
-	 * Launch the application.
-	 */
+	
+
 	public static void main(String[] args) {
 		
 		//--------MAIN MAGRE-RETRIEVE NG LIST---------------//
@@ -57,9 +59,7 @@ public class LoginFrame extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public LoginFrame() {
 		//setUndecorated(true); //para maging windowless
 		setResizable(false); //prevent frame from being resize
@@ -76,6 +76,7 @@ public class LoginFrame extends JFrame {
 		contentPane.add(LeftPanel);
 		LeftPanel.setLayout(null);
 		
+
 		JLabel Title_1 = new JLabel("TUP Reads");
 		Title_1.setFont(new Font("Segoe UI", Font.BOLD, 34));
 		Title_1.setBounds(190, 178, 185, 46);
@@ -175,6 +176,19 @@ public class LoginFrame extends JFrame {
 		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 25));
 		lblNewLabel.setBounds(153, 133, 185, 31);
 		RightPanel.add(lblNewLabel);
+		
+		ImageIcon logInBG = new ImageIcon(this.getClass().getResource("/assets/LOGO NO BG.png")); // load the image to a imageIcon
+		Image logIB = logInBG.getImage(); // transform it 
+		Image newlogIB = logIB.getScaledInstance(1000, 2000,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		logInBG = new ImageIcon(newlogIB);
+		
+		JLabel LOG_IN_PAGE = new JLabel("New label");
+		LOG_IN_PAGE.setBounds(300, 100, 100, 100);
+		LOG_IN_PAGE.setIconTextGap(0);
+		LOG_IN_PAGE.setIcon(logInBG);
+		LeftPanel.add(LOG_IN_PAGE);
+		
+		
 		
 	}
 }

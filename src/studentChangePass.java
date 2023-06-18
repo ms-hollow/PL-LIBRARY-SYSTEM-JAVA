@@ -71,10 +71,14 @@ public class studentChangePass extends JPanel {
                 String newpass = String.valueOf(newPassField.getPassword());
                 String reenterpass = String.valueOf(rePassField.getPassword());
                 
+                
+                int accountIndex= borrower.locateBorrower(TUP_ID);
                 if (borrower.locateBorrower(TUP_ID)<0) { // Modify the condition
-                    JOptionPane.showMessageDialog(null, "INCORRECT TUP ID!", "Change Password", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "ACCOUNT NOT FOUND", "Change Password", JOptionPane.ERROR_MESSAGE);
                 } else if (TUP_ID.length() != 6) {
                     JOptionPane.showMessageDialog(null, "TUP ID MUST BE 6 DIGITS LONG", "Registration", JOptionPane.ERROR_MESSAGE);
+                } else if (!password.equals(borrower.borrowerList.get(accountIndex).getPassword())) {
+                    JOptionPane.showMessageDialog(null, "INCORRECT CURRENT PASSWORD", "Registration", JOptionPane.ERROR_MESSAGE);
                 } else if (!password.equals(String.valueOf(currPassField.getPassword()))) {
                     JOptionPane.showMessageDialog(null, "PASSWORD DIDN'T MATCH!", "Change Password", JOptionPane.ERROR_MESSAGE);
                 } else if (!newpass.equals(String.valueOf(reenterpass))) {
