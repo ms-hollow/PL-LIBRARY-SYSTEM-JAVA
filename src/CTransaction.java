@@ -37,7 +37,7 @@ public class CTransaction {
     public static int accountIndex;		//public static para ma-access directly ng logIn.
     public static int bookIndex;
 
-    public CTransaction(String title, String author, String ISBN, String borrower, String TUP_ID, String dateBorrowed, String dateToReturn, String librarian, String refNum, String status) {
+    public CTransaction(String title, String ISBN, String TUP_ID, String dateBorrowed, String dateToReturn, String status, String borrower, String author,  String librarian, String refNum) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
@@ -96,7 +96,8 @@ public class CTransaction {
     	JLabel libLabel = new JLabel("Welcome to TUP READS, " + CBorrower.borrowerList.get(index).getName());
     	libLabel.setFont(new Font("Arial", Font.BOLD, 16));
     	panel.add(libLabel);
-
+    	
+    	
     	JLabel tupIdLabel = new JLabel("TUP ID: " + CBorrower.borrowerList.get(index).getTUP_ID());
     	tupIdLabel.setFont(new Font("Arial", Font.PLAIN, 12));
     	panel.add(tupIdLabel);
@@ -118,11 +119,11 @@ public class CTransaction {
     	authorField.setEditable(false);
     	panel.add(authorField);
 
-    	JTextField isbnField = new JTextField(selectedISBN);
-    	isbnField.setPreferredSize(new Dimension(500, 30));
+    	JTextField ISBNField = new JTextField(selectedISBN);
+    	ISBNField.setPreferredSize(new Dimension(500, 30));
     	panel.add(new JLabel("ISBN"));
-    	isbnField.setEditable(false);
-    	panel.add(isbnField);
+    	ISBNField.setEditable(false);
+    	panel.add(ISBNField);
 
     	JTextField dateBorrowedField = new JTextField();
     	dateBorrowedField.setPreferredSize(new Dimension(500, 30));
@@ -184,7 +185,7 @@ public class CTransaction {
     	        "\n\n",
     	        "Book to Borrow", titleField,
     	        "Book Author", authorField,
-    	        "ISBN", isbnField,
+    	        "ISBN", ISBNField,
     	        "Enter Date Borrowed", dateBorrowedField,
     	        "Enter Date to Return", dateToReturnField, calendarButton,
     	        "Library In-charge", librarianField,
@@ -201,19 +202,22 @@ public class CTransaction {
     	    // Isasalin sa string lahat ng nasa textfield
     	    String title = titleField.getText();
     	    String author = authorField.getText();
-    	    String isbn = isbnField.getText();
+    	    String ISBN = ISBNField.getText();
     	    String dateBorrowed = dateBorrowedField.getText();
     	    String dateToReturn = dateToReturnField.getText();
     	    String librarian = librarianField.getText();
     	    String status = statusField.getText();
+        	String TUP_ID = CBorrower.borrowerList.get(index).getTUP_ID();
+        	String borrower = CBorrower.borrowerList.get(index).getName();
+    	    
 
             // Check transaction fields
-	        if (!checkTransactionFields(title, author, isbn, dateBorrowed, dateToReturn, librarian, status)) {
+	        if (!checkTransactionFields(title, ISBN , TUP_ID, dateBorrowed, dateToReturn, status, borrower, author, librarian, "-")) {
 	            JOptionPane.showMessageDialog(null, "PLEASE FILL IN ALL FIELDS", "Borrow book", JOptionPane.ERROR_MESSAGE);
 	            continue;
 	        }
 
-	        else if (Book.locateBook(isbn) < 0) {
+	        else if (Book.locateBook(ISBN) < 0) {
 	            JOptionPane.showMessageDialog(null, "ENTERED RECORD DOES NOT EXIST", "Borrow book", JOptionPane.ERROR_MESSAGE);
 	            continue;
 	           
@@ -222,16 +226,16 @@ public class CTransaction {
 	        /*else if(){
 	            //if greater than 3 na nahiram niyang book
 	        }*/
-
+	        setRefNum(generateRefNum());
 	        String displayMessage =
-	        			"\nReference Number: "		+ generateRefNum() + "\n\n" +
+	        			"\nReference Number: "		+ getRefNum() + "\n\n" +
 	        		
 						"Name: "		+ CBorrower.borrowerList.get(index).getName() + "\n" +
 						"TUP ID: "		+ CBorrower.borrowerList.get(index).getTUP_ID() + "\n" +
 						"Year and Section: "		 + CBorrower.borrowerList.get(index).getYearSection() + "\n\n" +
     	                "Title of the book: "		+ title + "\n" +
     	                "Author of the Book: "		+ author + "\n" +
-    	                "ISBN of the book: "		+ isbn + "\n" +
+    	                "ISBN of the book: "		+ ISBN + "\n" +
     	                "Enter Date Borrowed: "		+ dateBorrowed + "\n" +
     	                "Enter Date to Return: "		+ dateToReturn + "\n" +
     	                "Days Remaining: "			+ calculateRemainingDays(dateToReturn) + "\n" +
@@ -240,7 +244,7 @@ public class CTransaction {
 
 	        JOptionPane.showMessageDialog(null, displayMessage, "Statement of Transaction", JOptionPane.INFORMATION_MESSAGE);
 	        int remainingDays = calculateRemainingDays(dateToReturn); 
-	        addTransaction(title, author, isbn, borrower, TUP_ID, dateBorrowed, dateToReturn, librarian, refNum, status); //after makuha info, i-add na.
+	        addTransaction(title, author, ISBN, borrower, TUP_ID, dateBorrowed, dateToReturn, librarian, refNum, status); //after makuha info, i-add na.
 	        saveTransaction();
 	        JOptionPane.showMessageDialog(null, "TRANSACTION SUCCESSFULLY SUBMITTED. PROCEED TO THE LIBRARIAN TO APPROVE TRANSACTION", "Borrow Book", JOptionPane.INFORMATION_MESSAGE);
 	        // PUNTA SA NEXT FRAME
@@ -337,7 +341,7 @@ public class CTransaction {
 	            case 6: transactionList.get(index).setDateBorrowed(updatedInfo);
         				break;
 	            case 7: transactionList.get(index).setDateToReturn(updatedInfo);
-        				break;123412
+        				break;
 	            case 8: transactionList.get(index).setLibrarian(updatedInfo);
         				break;
 	            case 9: transactionList.get(index).setStatus(updatedInfo);
@@ -431,16 +435,19 @@ public class CTransaction {
             for (CTransaction transaction: transactionList) {
             	int index = getAccountIndex();
                 String data = 
-                		      generateRefNum() + "," +
-		                	  transaction.getTitle() + "," +
-                              transaction.getAuthor() + "," +
-                              transaction.getISBN() + "," +
-                              CBorrower.borrowerList.get(index).getName() + "," +
-                              CBorrower.borrowerList.get(index).getTUP_ID() + "," +
-                              transaction.getDateBorrowed() + "," +
-                              transaction.getDateToReturn() + "," +
-                              transaction.getLibrarian() +"," +
-                              transaction.getStatus() + "\n";
+                			
+                			transaction.getTitle() + "," +
+                			transaction.getISBN() + "," +
+                			CBorrower.borrowerList.get(index).getTUP_ID() + "," +
+                			transaction.getDateBorrowed() + "," +
+                			transaction.getDateToReturn() + "," +
+                			transaction.getStatus() + "," +
+                			CBorrower.borrowerList.get(index).getTUP_ID() + "," +
+                			transaction.getAuthor() + "," +
+                			transaction.getLibrarian() +"," +
+                			transaction.getRefNum() + "\n" ;
+                
+
 
                 writer.write(data);
             }
@@ -483,16 +490,21 @@ public class CTransaction {
 	}
 	
 	//checks if may laman lahat ng fields.
-	public boolean checkTransactionFields(String title, String author, String isbn, String dateBorrowed, String dateToReturn, String librarian, String status) {
-		if(	title.equals("") ||
-			author.equals("") ||
-			isbn.equals("") ||
-			dateBorrowed.equals("") ||
-			dateToReturn.equals("") ||
-			librarian.equals("") ||
-			status.equals("")
-			
-			) {
+	public boolean checkTransactionFields(String title, String ISBN, String TUP_ID, String dateBorrowed, String dateToReturn, String status, String borrower, String author,  String librarian, String refNum) {
+		if(	
+
+				title.equals("")||
+				ISBN.equals("")||
+				TUP_ID.equals("")||
+				dateBorrowed.equals("")||
+				dateToReturn.equals("")||
+				status.equals("")||
+				borrower.equals("")||
+				author.equals("")||
+				librarian.equals("")||
+				refNum.equals("")
+			)
+			{
 			return false;}
 		else {
 			return true;}
