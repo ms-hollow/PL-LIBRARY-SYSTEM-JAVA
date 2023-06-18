@@ -31,12 +31,14 @@ public class Student_Portal extends JFrame {
 	private JLabel studentChangePasslbl;
 	
 	private static CBook book = new CBook("","","","","","","",0,0,0);    //creates an instance of an object book para matawag mga methods na nasa class Book
-
+	private static CBorrower borrower = new CBorrower("","","","","",""); 
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		book.retrieveBook();
+		borrower.retrieveBorrower();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

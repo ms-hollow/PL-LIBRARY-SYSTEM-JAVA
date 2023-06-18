@@ -511,7 +511,7 @@ public class manageTransactionRecords extends JPanel {
 		    JTable table = new JTable(model);
 
 		    // Specify the desired widths for each column
-		    int[] columnWidths = {50, 30, 30, 30, 30, 30, 30};
+		    int[] columnWidths = {150, 50, 20, 20, 20, 20, 20};
 
 		    // Set the preferred column widths
 		    for (int i = 0; i < columnWidths.length; i++) {
