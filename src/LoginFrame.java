@@ -72,43 +72,48 @@ public class LoginFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel LeftPanel = new JPanel();
-		LeftPanel.setBounds(0, 0, 571, 631);
+		LeftPanel.setBounds(0, 0, 613, 631);
 		contentPane.add(LeftPanel);
 		LeftPanel.setLayout(null);
-		
-
-		JLabel Title_1 = new JLabel("TUP Reads");
-		Title_1.setFont(new Font("Segoe UI", Font.BOLD, 34));
-		Title_1.setBounds(190, 178, 185, 46);
-		LeftPanel.add(Title_1);
-		
-		JLabel lblWlcm = new JLabel("Fly the world on our shelves");
-		lblWlcm.setFont(new Font("Segoe UI", Font.ITALIC, 18));
-		lblWlcm.setBounds(159, 232, 226, 26);
-		LeftPanel.add(lblWlcm);
 		
 		JPanel RightPanel = new JPanel();
 		RightPanel.setBounds(570, 0, 539, 631);
 		contentPane.add(RightPanel);
 		RightPanel.setLayout(null);
 		
+		JLabel Title_1 = new JLabel("TUP Reads");
+		Title_1.setForeground(new Color(255, 245, 238));
+		Title_1.setFont(new Font("Segoe UI", Font.BOLD, 40));
+		Title_1.setBounds(96, 124, 201, 54);
+		RightPanel.add(Title_1);
+		
+		JLabel lblWlcm = new JLabel("F l y   t h e   w o r l d   o n   o u r   s h e l v e s");
+		lblWlcm.setForeground(new Color(255, 245, 238));
+		lblWlcm.setFont(new Font("Segoe UI", Font.ITALIC, 15));
+		lblWlcm.setBounds(48, 178, 297, 34);
+		RightPanel.add(lblWlcm);
+		
 		TUPID_Field = new JTextField();
 		TUPID_Field.setColumns(10);
-		TUPID_Field.setBounds(153, 221, 240, 26);
+		TUPID_Field.setBounds(76, 315, 227, 26);
 		RightPanel.add(TUPID_Field);
 		
 		tupIDLabel = new JLabel("TUP ID");
+		tupIDLabel.setForeground(new Color(255, 245, 238));
+		tupIDLabel.setBackground(new Color(255, 245, 238));
 		tupIDLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		tupIDLabel.setBounds(153, 196, 46, 14);
+		tupIDLabel.setBounds(76, 290, 46, 14);
 		RightPanel.add(tupIDLabel);
 		
 		Passwordlbl = new JLabel("PASSWORD");
+		Passwordlbl.setForeground(new Color(255, 245, 238));
+		Passwordlbl.setBackground(new Color(255, 245, 238));
 		Passwordlbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		Passwordlbl.setBounds(153, 269, 83, 14);
+		Passwordlbl.setBounds(76, 363, 83, 14);
 		RightPanel.add(Passwordlbl);
 		
 		password_Field = new JPasswordField();
-		password_Field.setBounds(153, 294, 240, 26);
+		password_Field.setBounds(76, 388, 227, 26);
 		RightPanel.add(password_Field);
 		
 		//////LOGIN//////
@@ -143,7 +148,7 @@ public class LoginFrame extends JFrame {
 		
 		btn_LogIn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		btn_LogIn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btn_LogIn.setBounds(218, 352, 111, 35);
+		btn_LogIn.setBounds(134, 446, 111, 35);
 		RightPanel.add(btn_LogIn);
 		
 		
@@ -162,31 +167,46 @@ public class LoginFrame extends JFrame {
 		
 		lbl_register.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_register.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lbl_register.setForeground(Color.BLUE);
+		lbl_register.setForeground(new Color(135, 206, 250));
 		lbl_register.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		lbl_register.setBounds(274, 404, 105, 14);
+		lbl_register.setBounds(192, 498, 105, 14);
 		RightPanel.add(lbl_register);
 		
 		lblNotRegistered = new JLabel("Not Registered?");
+		lblNotRegistered.setForeground(new Color(255, 245, 238));
+		lblNotRegistered.setBackground(new Color(255, 245, 238));
 		lblNotRegistered.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		lblNotRegistered.setBounds(176, 398, 105, 26);
+		lblNotRegistered.setBounds(94, 492, 105, 26);
 		RightPanel.add(lblNotRegistered);
 		
 		lblNewLabel = new JLabel("Welcome.");
+		lblNewLabel.setForeground(new Color(255, 245, 238));
+		lblNewLabel.setBackground(new Color(255, 245, 238));
 		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 25));
-		lblNewLabel.setBounds(153, 133, 185, 31);
+		lblNewLabel.setBounds(76, 248, 185, 31);
 		RightPanel.add(lblNewLabel);
 		
-		ImageIcon logInBG = new ImageIcon(this.getClass().getResource("/assets/LOGO NO BG.png")); // load the image to a imageIcon
+		ImageIcon logInBG = new ImageIcon(this.getClass().getResource("/assets/LOG_IN_BG.jpg")); // load the image to a imageIcon
 		Image logIB = logInBG.getImage(); // transform it 
-		Image newlogIB = logIB.getScaledInstance(1000, 2000,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		Image newlogIB = logIB.getScaledInstance(700, 650,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
 		logInBG = new ImageIcon(newlogIB);
 		
-		JLabel LOG_IN_PAGE = new JLabel("New label");
-		LOG_IN_PAGE.setBounds(300, 100, 100, 100);
+		JLabel LOG_IN_PAGE = new JLabel("");
+		LOG_IN_PAGE.setBounds(0, 0, 1110, 631);
 		LOG_IN_PAGE.setIconTextGap(0);
 		LOG_IN_PAGE.setIcon(logInBG);
 		LeftPanel.add(LOG_IN_PAGE);
+		
+		ImageIcon logInBGR = new ImageIcon(this.getClass().getResource("/assets/LOG_IN_BGR.jpg")); // load the image to a imageIcon
+		Image logIBR = logInBGR.getImage(); // transform it 
+		Image newlogIBR = logIBR.getScaledInstance(700, 650,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		logInBGR = new ImageIcon(newlogIBR);
+		
+		JLabel LOG_IN_PAGER = new JLabel("");
+		LOG_IN_PAGER.setBounds(-83, 0, 1193, 631);
+		LOG_IN_PAGER.setIconTextGap(0);
+		LOG_IN_PAGER.setIcon(logInBGR);
+		RightPanel.add(LOG_IN_PAGER);
 		
 		
 		

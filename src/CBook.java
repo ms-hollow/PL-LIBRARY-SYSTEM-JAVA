@@ -344,8 +344,8 @@ class CBook {
     }
 	
 	public void retrieveBook() {
-		String fileName = "src//files//bookRecords.csv";
-                
+		String fileName = "src//files//BookRecords.csv";
+
         try {
             // create file object
             File file = new File(fileName);

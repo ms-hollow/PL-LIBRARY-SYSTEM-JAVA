@@ -104,14 +104,14 @@ public class manageTransactionRecords extends JPanel {
       	add(TUP_IDBtn);
       		
       	JRadioButton dateBorrowedBtn = new JRadioButton("Date Borrowed");
-      	dateBorrowedBtn.setBounds(21, 151, 95, 23);
+      	dateBorrowedBtn.setBounds(21, 151, 111, 23);
       	dateBorrowedBtn.setForeground(new Color(0, 0, 0));
       	dateBorrowedBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	dateBorrowedBtn.setContentAreaFilled(false);
       	add(dateBorrowedBtn);
       		
-      	JRadioButton dateToReturnBtn = new JRadioButton("Date to return");
-      	dateToReturnBtn.setBounds(21, 177, 90, 23);
+      	JRadioButton dateToReturnBtn = new JRadioButton("Date to Return");
+      	dateToReturnBtn.setBounds(21, 177, 111, 23);
       	dateToReturnBtn.setForeground(new Color(0, 0, 0));
       	dateToReturnBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
       	dateToReturnBtn.setContentAreaFilled(false);
@@ -250,17 +250,17 @@ public class manageTransactionRecords extends JPanel {
         add(updateBtn);
         
         JLabel titlebookReclbl = new JLabel("Title");
-        titlebookReclbl.setBounds(127, 281, 46, 14);
+        titlebookReclbl.setBounds(148, 281, 46, 14);
         titlebookReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         add(titlebookReclbl);
         
         JLabel ISBNReclbl = new JLabel("ISBN");
-        ISBNReclbl.setBounds(127, 314, 46, 14);
+        ISBNReclbl.setBounds(148, 314, 46, 14);
         ISBNReclbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         add(ISBNReclbl);
         
         JLabel materialbookReclbl_1 = new JLabel("Borrower");
-        materialbookReclbl_1.setBounds(127, 404, 70, 14);
+        materialbookReclbl_1.setBounds(148, 404, 70, 14);
         materialbookReclbl_1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         add(materialbookReclbl_1);
         
@@ -337,7 +337,7 @@ public class manageTransactionRecords extends JPanel {
         add(remainingField);
         
         searchbookField = new JTextField();
-        searchbookField.setBounds(167, 18, 677, 31);
+        searchbookField.setBounds(178, 18, 666, 31);
         searchbookField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         searchbookField.setColumns(10);
         add(searchbookField);
@@ -366,7 +366,7 @@ public class manageTransactionRecords extends JPanel {
         add(searchBtn_2);
         
         JLabel bookSrchImg = new JLabel();
-        bookSrchImg.setBounds(128, 14, 40, 38);
+        bookSrchImg.setBounds(138, 14, 40, 38);
         bookSrchImg.setIconTextGap(0);
 		bookSrchImg.setIcon(searchIcon);
         add(bookSrchImg);
@@ -409,12 +409,12 @@ public class manageTransactionRecords extends JPanel {
 	    
 	    JLabel ISBNbookReclbl_1 = new JLabel("Author");
 	    ISBNbookReclbl_1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-	    ISBNbookReclbl_1.setBounds(127, 345, 70, 14);
+	    ISBNbookReclbl_1.setBounds(148, 345, 70, 14);
 	    add(ISBNbookReclbl_1);
 	    
 	    JLabel materialbookReclbl_1_1 = new JLabel("TUP ID");
 	    materialbookReclbl_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-	    materialbookReclbl_1_1.setBounds(127, 373, 70, 14);
+	    materialbookReclbl_1_1.setBounds(148, 373, 70, 14);
 	    add(materialbookReclbl_1_1);
 	    
 	    referenceField = new JTextField();
@@ -446,7 +446,7 @@ public class manageTransactionRecords extends JPanel {
 		    }
 
 		    manageBookscrollPane = new JScrollPane();
-		    manageBookscrollPane.setBounds(117, 60, 859, 207);
+		    manageBookscrollPane.setBounds(138, 60, 838, 207);
 		    add(manageBookscrollPane);
 
 		    // Create a DefaultTableModel and specify the column names

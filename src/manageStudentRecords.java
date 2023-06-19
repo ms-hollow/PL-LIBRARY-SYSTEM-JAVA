@@ -32,9 +32,6 @@ public class manageStudentRecords extends JPanel {
 	private JTextField courseSecField;
 	private JTextField contactNoField;
 	private JTextField emailField;
-	private JTextField book1Field;
-	private JTextField book2Field;
-	private JTextField book3Field;
 	private JScrollPane manageStudentscrollPane;
 	private int selectedRow;
 	private String TUP_ID;
@@ -152,28 +149,13 @@ public class manageStudentRecords extends JPanel {
         
         JLabel contactNoStudentlbl = new JLabel("Contact No.");
         contactNoStudentlbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        contactNoStudentlbl.setBounds(90, 370, 86, 14);
+        contactNoStudentlbl.setBounds(511, 278, 86, 14);
         add(contactNoStudentlbl);
         
         JLabel emailStudentlbl = new JLabel("Email");
         emailStudentlbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        emailStudentlbl.setBounds(90, 401, 70, 14);
+        emailStudentlbl.setBounds(511, 309, 70, 14);
         add(emailStudentlbl);
-        
-        JLabel book1Studentlbl = new JLabel("Book No. 1");
-        book1Studentlbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        book1Studentlbl.setBounds(511, 278, 89, 14);
-        add(book1Studentlbl);
-        
-        JLabel book2Studentlbl = new JLabel("Book No. 2");
-        book2Studentlbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        book2Studentlbl.setBounds(511, 311, 70, 14);
-        add(book2Studentlbl);
-        
-        JLabel book3Studentlbl = new JLabel("Book No. 3");
-        book3Studentlbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        book3Studentlbl.setBounds(511, 339, 70, 14);
-        add(book3Studentlbl);
         
         tupIDField = new JTextField();
         tupIDField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -190,32 +172,14 @@ public class manageStudentRecords extends JPanel {
         contactNoField = new JTextField();
         contactNoField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         contactNoField.setColumns(10);
-        contactNoField.setBounds(186, 367, 315, 20);
+        contactNoField.setBounds(607, 275, 315, 20);
         add(contactNoField);
         
         emailField = new JTextField();
         emailField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         emailField.setColumns(10);
-        emailField.setBounds(186, 398, 315, 20);
+        emailField.setBounds(607, 306, 315, 20);
         add(emailField);
-        
-        book1Field = new JTextField();
-        book1Field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        book1Field.setColumns(10);
-        book1Field.setBounds(608, 275, 315, 20);
-        add(book1Field);
-        
-        book2Field = new JTextField();
-        book2Field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        book2Field.setColumns(10);
-        book2Field.setBounds(608, 308, 315, 20);
-        add(book2Field);
-        
-        book3Field = new JTextField();
-        book3Field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        book3Field.setColumns(10);
-        book3Field.setBounds(608, 336, 315, 20);
-        add(book3Field);
         
         searchborrowerField = new JTextField();
         searchborrowerField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -343,8 +307,6 @@ public class manageStudentRecords extends JPanel {
 			courseSecField.setText("");
 			contactNoField.setText("");
 			emailField.setText("");
-			book1Field.setText("");
-			book2Field.setText("");
 			searchborrowerField.setText("");
 		}
 		
@@ -356,29 +318,7 @@ public class manageStudentRecords extends JPanel {
 	                borrowedBooks.add(transaction.getTitle());
 	            }
 	        }
-	        
-	        // Display the recent three books borrowed
-	        int numBooks = borrowedBooks.size();
-	        
-	        if (numBooks >= 1) {
-	            book1Field.setText(borrowedBooks.get(numBooks - 1));
-	        } else {
-	            book1Field.setText("");
-	        }
-	        
-	        if (numBooks >= 2) {
-	            book2Field.setText(borrowedBooks.get(numBooks - 2));
-	        } else {
-	            book2Field.setText("");
-	        }
-	        
-	        if (numBooks >= 3) {
-	            book3Field.setText(borrowedBooks.get(numBooks - 3));
-	        } else {
-	            book3Field.setText("");
-	        }
 	    }
-
 
 		//END OF CLASS
 }

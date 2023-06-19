@@ -83,17 +83,18 @@ public class studentChangePass extends JPanel {
                     JOptionPane.showMessageDialog(null, "PASSWORD DIDN'T MATCH!", "Change Password", JOptionPane.ERROR_MESSAGE);
                 } else if (!newpass.equals(String.valueOf(reenterpass))) {
                     JOptionPane.showMessageDialog(null, "NEW PASSWORD ENTERED DOESN'T MATCH THE RE-ENTERED PASSWORD!", "Change Password", JOptionPane.ERROR_MESSAGE);
+                } else if (password.equals(newpass)) {
+                    JOptionPane.showMessageDialog(null, "YOU ENTERED AN OLD PASSWORD", "Registration", JOptionPane.ERROR_MESSAGE);
                 } else {
                     int choice = JOptionPane.showConfirmDialog(null, "CONFIRM CHANGES?", "Change Password", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (choice == JOptionPane.YES_OPTION) {
-                    	
                     	int index = borrower.locateBorrower(TUP_ID);	//returns index of the seleted book
                     	borrower.borrowerList.get(index).setPassword(newpass);
                         borrower.saveBorrower();
                     	JOptionPane.showMessageDialog(null, "YOUR PASSWORD HAS BEEN SUCCESSFULLY CHANGED!", "Change Password", JOptionPane.INFORMATION_MESSAGE);
-                        clearFields();
                     }
                 }
+                clearFields();
             }
         });
         updatebtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));

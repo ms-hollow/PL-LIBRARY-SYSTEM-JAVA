@@ -7,8 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -67,16 +70,6 @@ public class RegisterFrame extends JFrame {
 		LeftPanel.setBounds(0, 0, 571, 631);
 		contentPane.add(LeftPanel);
 		
-		JLabel Title_1 = new JLabel("TUP Reads");
-		Title_1.setFont(new Font("Segoe UI", Font.BOLD, 34));
-		Title_1.setBounds(190, 178, 185, 46);
-		LeftPanel.add(Title_1);
-		
-		JLabel lblWlcm = new JLabel("Fly the world on our shelves");
-		lblWlcm.setFont(new Font("Segoe UI", Font.ITALIC, 18));
-		lblWlcm.setBounds(159, 232, 226, 26);
-		LeftPanel.add(lblWlcm);
-		
 		JPanel RightPanel = new JPanel();
 		RightPanel.setLayout(null);
 		RightPanel.setBounds(570, 0, 539, 631);
@@ -85,71 +78,84 @@ public class RegisterFrame extends JFrame {
 		RegID_Field = new JTextField();
 		RegID_Field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		RegID_Field.setColumns(10);
-		RegID_Field.setBounds(128, 133, 292, 26);
+		RegID_Field.setBounds(128, 105, 292, 26);
 		RightPanel.add(RegID_Field);
 		
 		JLabel tupIDLabel = new JLabel("TUP ID");
+		tupIDLabel.setForeground(new Color(255, 245, 238));
+		tupIDLabel.setBackground(new Color(255, 245, 238));
 		tupIDLabel.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		tupIDLabel.setBounds(128, 108, 46, 14);
+		tupIDLabel.setBounds(128, 80, 46, 14);
 		RightPanel.add(tupIDLabel);
 		
 		JLabel lblPassword = new JLabel("PASSWORD");
+		lblPassword.setForeground(new Color(255, 245, 238));
+		lblPassword.setBackground(new Color(255, 245, 238));
 		lblPassword.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		lblPassword.setBounds(128, 289, 83, 14);
+		lblPassword.setBounds(128, 261, 83, 14);
 		RightPanel.add(lblPassword);
 		
 		RegpassField = new JPasswordField();
 		RegpassField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		RegpassField.setBounds(128, 314, 292, 26);
+		RegpassField.setBounds(128, 286, 292, 26);
 		RightPanel.add(RegpassField);
 		
 		RegcrsNscField = new JTextField();
 		RegcrsNscField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		RegcrsNscField.setBounds(128, 253, 292, 26);
+		RegcrsNscField.setBounds(128, 225, 292, 26);
 		RightPanel.add(RegcrsNscField);
 		RegcrsNscField.setColumns(10);
 		
 		JLabel lblcrsNsc = new JLabel("COURSE & SECTION");
+		lblcrsNsc.setForeground(new Color(255, 245, 238));
+		lblcrsNsc.setBackground(new Color(255, 245, 238));
 		lblcrsNsc.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		lblcrsNsc.setBounds(128, 230, 130, 14);
+		lblcrsNsc.setBounds(128, 202, 130, 14);
 		RightPanel.add(lblcrsNsc);
 		
 		RegnameField = new JTextField();
 		RegnameField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		RegnameField.setColumns(10);
-		RegnameField.setBounds(128, 193, 292, 26);
+		RegnameField.setBounds(128, 165, 292, 26);
 		RightPanel.add(RegnameField);
 		
 		JLabel lblName = new JLabel("NAME");
+		lblName.setForeground(new Color(255, 245, 238));
+		lblName.setBackground(new Color(255, 245, 238));
 		lblName.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		lblName.setBounds(128, 170, 51, 14);
+		lblName.setBounds(128, 142, 51, 14);
 		RightPanel.add(lblName);
 		
 		JLabel lblNewLabel_1 = new JLabel("(Ex. Juan Dela Cruz)");
-		lblNewLabel_1.setForeground(new Color(128, 128, 128));
+		lblNewLabel_1.setBackground(new Color(255, 245, 238));
+		lblNewLabel_1.setForeground(new Color(224, 255, 255));
 		lblNewLabel_1.setFont(new Font("Segoe UI", Font.ITALIC, 14));
-		lblNewLabel_1.setBounds(171, 170, 130, 14);
+		lblNewLabel_1.setBounds(176, 142, 130, 14);
 		RightPanel.add(lblNewLabel_1);
 		
 		JLabel lblReenterPassword = new JLabel("RE-ENTER PASSWORD");
+		lblReenterPassword.setForeground(new Color(255, 245, 238));
+		lblReenterPassword.setBackground(new Color(255, 245, 238));
 		lblReenterPassword.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		lblReenterPassword.setBounds(128, 351, 167, 14);
+		lblReenterPassword.setBounds(128, 323, 167, 14);
 		RightPanel.add(lblReenterPassword);
 		
 		RegrepassField = new JPasswordField();
 		RegrepassField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		RegrepassField.setBounds(128, 376, 292, 26);
+		RegrepassField.setBounds(128, 348, 292, 26);
 		RightPanel.add(RegrepassField);
 		
 		JLabel lblEmail = new JLabel("EMAIL");
+		lblEmail.setForeground(new Color(255, 245, 238));
+		lblEmail.setBackground(new Color(255, 245, 238));
 		lblEmail.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		lblEmail.setBounds(128, 475, 51, 14);
+		lblEmail.setBounds(128, 447, 51, 14);
 		RightPanel.add(lblEmail);
 		
 		RegemailField = new JTextField();
 		RegemailField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		RegemailField.setColumns(10);
-		RegemailField.setBounds(128, 500, 292, 26);
+		RegemailField.setBounds(128, 472, 292, 26);
 		RightPanel.add(RegemailField);
 
 		
@@ -212,18 +218,71 @@ public class RegisterFrame extends JFrame {
 			}
 		});
 		btn_Register.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		btn_Register.setBounds(215, 553, 111, 35);
+		btn_Register.setBounds(215, 525, 111, 35);
 		RightPanel.add(btn_Register);
 		
 		JLabel contactNumlbl = new JLabel("CONTACT NUMBER");
+		contactNumlbl.setForeground(new Color(255, 245, 238));
+		contactNumlbl.setBackground(new Color(255, 245, 238));
 		contactNumlbl.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 14));
-		contactNumlbl.setBounds(128, 413, 167, 14);
+		contactNumlbl.setBounds(128, 385, 167, 14);
 		RightPanel.add(contactNumlbl);
 		
 		RegcontactNumField = new JTextField();
 		RegcontactNumField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		RegcontactNumField.setColumns(10);
-		RegcontactNumField.setBounds(128, 438, 292, 26);
+		RegcontactNumField.setBounds(128, 410, 292, 26);
 		RightPanel.add(RegcontactNumField);
+		
+		JLabel exampleID = new JLabel("(Ex. 201890)");
+		exampleID.setForeground(new Color(224, 255, 255));
+		exampleID.setFont(new Font("Segoe UI", Font.ITALIC, 14));
+		exampleID.setBackground(new Color(255, 245, 238));
+		exampleID.setBounds(176, 80, 130, 14);
+		RightPanel.add(exampleID);
+		
+		JLabel exampleCourse = new JLabel("(Ex. BSCSNS2AB)");
+		exampleCourse.setForeground(new Color(224, 255, 255));
+		exampleCourse.setFont(new Font("Segoe UI", Font.ITALIC, 14));
+		exampleCourse.setBackground(new Color(255, 245, 238));
+		exampleCourse.setBounds(263, 202, 130, 14);
+		RightPanel.add(exampleCourse);
+		
+		JLabel exampleContact = new JLabel("(Ex. 0912345678)");
+		exampleContact.setForeground(new Color(224, 255, 255));
+		exampleContact.setFont(new Font("Segoe UI", Font.ITALIC, 14));
+		exampleContact.setBackground(new Color(255, 245, 238));
+		exampleContact.setBounds(263, 385, 130, 14);
+		RightPanel.add(exampleContact);
+		
+		JLabel exampleEmail = new JLabel("(Ex. sample@tup.edu.ph)");
+		exampleEmail.setForeground(new Color(224, 255, 255));
+		exampleEmail.setFont(new Font("Segoe UI", Font.ITALIC, 14));
+		exampleEmail.setBackground(new Color(255, 245, 238));
+		exampleEmail.setBounds(176, 447, 172, 14);
+		RightPanel.add(exampleEmail);
+		
+		ImageIcon logInBG = new ImageIcon(this.getClass().getResource("/assets/LOG_IN_BG.jpg")); // load the image to a imageIcon
+		Image logIB = logInBG.getImage(); // transform it 
+		Image newlogIB = logIB.getScaledInstance(700, 650,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		logInBG = new ImageIcon(newlogIB);
+		
+		JLabel LOG_IN_PAGE = new JLabel("");
+		LOG_IN_PAGE.setBounds(0, 0, 1110, 631);
+		LOG_IN_PAGE.setIconTextGap(0);
+		LOG_IN_PAGE.setIcon(logInBG);
+		LeftPanel.add(LOG_IN_PAGE);
+		
+		ImageIcon logInBGR = new ImageIcon(this.getClass().getResource("/assets/LOG_IN_BGR.jpg")); // load the image to a imageIcon
+		Image logIBR = logInBGR.getImage(); // transform it 
+		Image newlogIBR = logIBR.getScaledInstance(700, 650,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+		logInBGR = new ImageIcon(newlogIBR);
+		
+		JLabel LOG_IN_PAGER = new JLabel("");
+		LOG_IN_PAGER.setBounds(0, 0, 1110, 631);
+		LOG_IN_PAGER.setIconTextGap(0);
+		LOG_IN_PAGER.setIcon(logInBGR);
+		RightPanel.add(LOG_IN_PAGER);	
+		
 		}
 }

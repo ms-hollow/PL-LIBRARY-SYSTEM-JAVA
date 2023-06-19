@@ -136,7 +136,7 @@ public class CBorrower {
 
     //scans the borrowerRecords.csv then add each row in the borrowerList
 	public void retrieveBorrower() {
-		String fileName = "src//files//borrowerRecords.csv";
+		String fileName = "src//files//BorrowerRecords.csv";
                 
         try {
             // create file object
