@@ -246,7 +246,15 @@ public class CTransaction {
 	        JOptionPane.showMessageDialog(null, displayMessage, "Statement of Transaction", JOptionPane.INFORMATION_MESSAGE);
 	        int remainingDays = calculateRemainingDays(dateToReturn); 
 	        addTransaction(title, ISBN, TUP_ID, dateBorrowed, dateToReturn, status, refNum, borrower, author, librarian); //after makuha info, i-add na.
+	        
+	        //DAGDAGAN NO. OF BORROWER NG BOOK
+	        int bookPos= Book.locateBook(ISBN);
+	        int noOfBorrower= Book.bookList.get(bookPos).getNoOfBorrower();
+	        Book.bookList.get(bookPos).setNoOfBorrower(noOfBorrower+1);
+	       
 	        saveTransaction();
+	        Book.saveBook();
+	        
 	        JOptionPane.showMessageDialog(null, "TRANSACTION SUCCESSFULLY SUBMITTED. PROCEED TO THE LIBRARIAN TO APPROVE TRANSACTION", "Borrow Book", JOptionPane.INFORMATION_MESSAGE);
 	        // PUNTA SA NEXT FRAME
 	        break;

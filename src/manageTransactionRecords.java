@@ -235,6 +235,13 @@ public class manageTransactionRecords extends JPanel {
 		        		transaction.transactionList.get(index).setRefNum(referenceField.getText());
 		        		//PARA SA REMAINING DAYS
 		        		
+		        		//IF INUPDATE TO RETURN, MABABAWASSAN NO. OF BORROWER NG BOOK
+		        		if(statusField.getText().equals("Returned")) {
+		        			int bookIndex= book.locateBook(ISBNField.getText());
+		        			int noOfBorrower= book.bookList.get(bookIndex).getNoOfBorrower();
+		        			book.bookList.get(bookIndex).setNoOfBorrower(noOfBorrower-1);
+		        		}
+		        		
 		    	        transaction.saveTransaction();
 		    	        displayTable();
 		    	        JOptionPane.showMessageDialog(null, "SELECTED BOOK IS UPDATED SUCCESSFULLY!", "Update Book", JOptionPane.INFORMATION_MESSAGE);

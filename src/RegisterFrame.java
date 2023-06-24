@@ -14,6 +14,8 @@ import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -219,6 +221,7 @@ public class RegisterFrame extends JFrame {
 		});
 		btn_Register.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btn_Register.setBounds(215, 525, 111, 35);
+		btn_Register.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		RightPanel.add(btn_Register);
 		
 		JLabel contactNumlbl = new JLabel("CONTACT NUMBER");
